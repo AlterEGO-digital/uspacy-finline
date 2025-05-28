@@ -4,9 +4,9 @@ import React from 'react';
 import { useTranslation } from 'react-i18next';
 
 import Providers from '../../Providers';
-import { IProps } from './types';
+import { AppProps, IProps } from './types';
 
-const App: React.FC = () => {
+const App: React.FC<AppProps> = ({}) => {
 	const { t } = useTranslation();
 	const profile = useAppSelector((state) => state.profile.data);
 
