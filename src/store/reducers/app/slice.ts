@@ -27,5 +27,5 @@ export const appActions = appSlice.actions;
 
 export const selectDeal = createDraftSafeSelector(
 	(state: RootState) => state.app,
-	(state) => state.deal,
+	(state) => state?.deal,
 );
