@@ -19,7 +19,7 @@ export interface IGeneratePaymentLinkDto {
 	email: string;
 	phone: string;
 	payment_account: string;
-	receipt_delivery: RecieptDeliveryEnum;
+	receipt_delivery: string;
 }
 export interface IPaymentAccount {
 	label: string;

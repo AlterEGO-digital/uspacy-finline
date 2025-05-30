@@ -1,7 +1,7 @@
 import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
 
 import { API_ENDPOINT, API_URL } from '../../../const';
-import { IGeneratePaymentLinkDto, PaymentCurrency, RecieptDeliveryChannel } from '../../../models/payment';
+import { IGeneratePaymentLinkDto, IPaymentAccount, PaymentCurrencyEnum, RecieptDeliveryEnum } from '../../../models/payment';
 
 export const paymentApi = createApi({
 	reducerPath: 'paymentApi',
@@ -19,7 +19,7 @@ export const paymentApi = createApi({
 				};
 			},
 		}),
-		getPaymentAccountsList: builder.query<void, void>({
+		getPaymentAccountsList: builder.query<IPaymentAccount[], void>({
 			query: () => ({ url: API_ENDPOINT.paymentAccounts(), method: 'GET' }),
 			transformErrorResponse: (error) => {
 				if (error.status === 401 || error.status === 403) {
@@ -31,17 +31,17 @@ export const paymentApi = createApi({
 				};
 			},
 		}),
-		getCurrencyList: builder.query<PaymentCurrency[], void>({
+		getCurrencyList: builder.query<PaymentCurrencyEnum[], void>({
 			queryFn: () => {
 				return {
-					data: ['UAH', 'USD', 'EUR'],
+					data: ['UAH', 'USD', 'EUR'] as PaymentCurrencyEnum[],
 				};
 			},
 		}),
-		getRecieptDeliveryList: builder.query<RecieptDeliveryChannel[], void>({
+		getRecieptDeliveryList: builder.query<RecieptDeliveryEnum[], void>({
 			queryFn: () => {
 				return {
-					data: ['none', 'email', 'sms', 'viber'],
+					data: ['None', 'Email', 'SMS', 'Viber'] as RecieptDeliveryEnum[],
 				};
 			},
 		}),
