@@ -1,10 +1,7 @@
-export interface IPaymentAccount {
-	name: string;
-	id: string;
-}
 export interface IPaymentAccountDto {
 	pos_id: string;
 	endpoints_key: string;
+	name: string;
 }
 export interface ISettings {
 	apiKey: string;

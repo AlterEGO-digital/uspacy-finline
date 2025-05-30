@@ -3,6 +3,7 @@ export interface IDealEmail {
 	main: boolean;
 	sort: string;
 	type: string;
+	value: string;
 }
 
 export interface IDealContact {
@@ -10,15 +11,16 @@ export interface IDealContact {
 	owner: number;
 	phone: string;
 	title: string;
-	eamail: IDealEmail[];
+	email: IDealEmail[];
 }
 
 export interface IDealAmount {
-	currency: string;
+	currency: PaymentCurrencyEnum;
 	value: string;
 }
 
 export interface IDeal {
 	contacts: IDealContact[];
 	amount: IDealAmount;
+	dealId: string;
 }
