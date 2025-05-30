@@ -1,32 +1,39 @@
+import { Paper } from '@mui/material';
 import Box from '@mui/material/Box';
-import { useAppSelector } from '@uspacy/store';
-import React from 'react';
-import { useTranslation } from 'react-i18next';
+import React, { useMemo } from 'react';
 
+import { AppProvider } from '../../context/AppProvider';
 import Providers from '../../Providers';
+import PaymentForm from '../PaymentForm';
+import { Logo } from '../ui/Logo';
 import { AppProps, IProps } from './types';
 
-const App: React.FC<AppProps> = ({}) => {
-	const { t } = useTranslation();
-	const profile = useAppSelector((state) => state.profile.data);
-
+const App: React.FC = () => {
 	return (
-		<Box
-			sx={{
-				display: 'flex',
-				justifyContent: 'center',
-				color: (theme) => theme.palette.primary.main,
-			}}
-		>
-			{t('helloWorld')} | {profile?.firstName} {profile?.lastName}
-		</Box>
+		<Paper elevation={3} sx={{ maxWidth: '600px', mx: 'auto', p: 4, borderRadius: 3 }}>
+			<Box
+				sx={{
+					display: 'flex',
+					flexDirection: 'column',
+
+					gap: 3,
+				}}
+			>
+				<Logo />
+				<PaymentForm />
+			</Box>
+		</Paper>
 	);
 };
 
-const AppWrap: React.FC<IProps> = ({ userSettings }) => {
+const AppWrap: React.FC<IProps & AppProps> = ({ userSettings, contacts, amount, dealId }) => {
+	const deal = useMemo(() => ({ amount, contacts, dealId }), [amount, contacts, dealId]);
+
 	return (
 		<Providers userSettings={userSettings}>
-			<App />
+			<AppProvider deal={deal}>
+				<App />
+			</AppProvider>
 		</Providers>
 	);
 };
