@@ -47,10 +47,15 @@ module.exports = {
 				test: /\.(ts|tsx)$/,
 				loader: 'ts-loader',
 			},
+			{
+				test: /\.svg$/i,
+				issuer: /\.[jt]sx?$/,
+				use: [{ loader: '@svgr/webpack', options: { icon: true } }],
+			},
 		],
 	},
 	resolve: {
-		extensions: ['.tsx', '.ts', '.js'],
+		extensions: ['.tsx', '.ts', '.js', '.svg'],
 	},
 	plugins: [
 		new ModuleFederationPlugin({
