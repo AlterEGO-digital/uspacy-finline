@@ -1,4 +1,28 @@
 {
-  "title": "Налаштування",
-  "save": "Зберегти"
+  "title": "Налаштування додатка",
+  "save": "Зберегти",
+  "settingsForm": {
+    "labels": {
+      "paymentAccountsName": "Назва рахунку",
+      "paymentAccountsId": "Pos ID",
+      "paymentAccountsEndppointsKey": "Endpoints Key",
+      "apiKey": "API key",
+      "apiSecret": "API secret"
+    },
+    "placeholders": {
+      "paymentAccountsName": "Введіть назву рахунку",
+      "paymentAccountsId": "Введіть Pos ID",
+      "paymentAccountsEndppointsKey": "Введіть Endpoints Key",
+      "apiKey": "Введіть API key",
+      "apiSecret": "Введіть API secret"
+    },
+    "fieldset": {
+      "main": "Автентифікація",
+      "accounts": "Платіжні рахунки (проєкти)"
+    },
+    "actions": {
+      "addPaymentAccountField": "Новий рахунок",
+      "clearAllPaymentAccounts": "Видалити всі"
+    }
+  }
 }

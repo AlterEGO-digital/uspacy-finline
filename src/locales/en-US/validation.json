@@ -1,0 +1,10 @@
+{
+  "common": {
+    "invalidString": "Invalid text.",
+    "required": "This field is required.",
+    "invalidEmail": "Invalid email address.",
+    "predefined": "Please select value from the list.",
+    "invalidNumber": "Only numbers are allowed.",
+    "optionalOrFilled": "All filled must be either filled or empty."
+  }
+}

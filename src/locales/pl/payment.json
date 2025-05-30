@@ -1,0 +1,42 @@
+{
+  "views": {
+    "success": {
+      "title": "Sukces!",
+      "reason": "Link został pomyślnie wygenerowany.",
+      "description": "Znajdziesz go w notatkach dotyczących transakcji.",
+      "back": "Wstecz"
+    }
+  },
+  "paymentForm": {
+    "labels": {
+      "description": "Cel płatności",
+      "amount": "Kwota",
+      "currency": "Waluta",
+      "email": "Email",
+      "phone": "Numer telefonu",
+      "paymentAccount": "Konto płatnicze",
+      "receiptDelivery": "Dostawa paragonu"
+    },
+    "placeholders": {
+      "description": "Wprowadź powód płatności",
+      "amount": "Wprowadź kwotę",
+      "currency": "Wybierz walutę",
+      "email": "Wprowadź lub wybierz adres email",
+      "phone": "Wprowadź lub wybierz numer telefonu",
+      "paymentAccount": "Wybierz konto płatnicze",
+      "receiptDelivery": "Wybierz metodę dostawy"
+    },
+    "predefined": {
+      "receiptDelivery": {
+        "none": "Brak",
+        "sms": "SMS",
+        "email": "Email",
+        "viber": "Viber"
+      }
+    },
+    "submit": "Utwórz link do płatności"
+  },
+  "deal": {
+    "notFound": "Nie można znaleźć transakcji"
+  }
+}

@@ -1,3 +1,7 @@
 {
-  "helloWorld": "Привіт Світ"
+  "common": {
+    "errors": {
+      "unknown": "Щось пішло не так."
+    }
+  }
 }
