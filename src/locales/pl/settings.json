@@ -1,4 +1,28 @@
 {
   "title": "Ustawienia",
-  "save": "Zapisz"
+  "save": "Zapisz",
+  "settingsForm": {
+    "labels": {
+      "paymentAccountsName": "Nazwa konta",
+      "paymentAccountsId": "ID punktu sprzedaży",
+      "paymentAccountsEndppointsKey": "Klucz Endpoints",
+      "apiKey": "Klucz API",
+      "apiSecret": "Sekret API"
+    },
+    "placeholders": {
+      "paymentAccountsName": "Wprowadź nazwę konta",
+      "paymentAccountsId": "Wprowadź ID punktu sprzedaży",
+      "paymentAccountsEndppointsKey": "Wprowadź klucz Endpoints",
+      "apiKey": "Wprowadź klucz API",
+      "apiSecret": "Wprowadź sekret API"
+    },
+    "fieldset": {
+      "main": "Uwierzytelnianie",
+      "accounts": "Konta płatnicze (projekty)"
+    },
+    "actions": {
+      "addPaymentAccountField": "Nowe konto",
+      "clearAllPaymentAccounts": "Usuń wszystkie"
+    }
+  }
 }

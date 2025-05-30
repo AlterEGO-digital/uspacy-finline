@@ -1,3 +1,7 @@
 {
-  "helloWorld": "Olá Mundo"
+  "common": {
+    "errors": {
+      "unknown": "Algo deu errado."
+    }
+  }
 }

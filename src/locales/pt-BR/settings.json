@@ -1,4 +1,28 @@
 {
   "title": "Configurações",
-  "save": "Salvar"
+  "save": "Salvar",
+  "settingsForm": {
+    "labels": {
+      "paymentAccountsName": "Nome da conta",
+      "paymentAccountsId": "ID do PDV",
+      "paymentAccountsEndppointsKey": "Chave de Endpoints",
+      "apiKey": "Chave da API",
+      "apiSecret": "Segredo da API"
+    },
+    "placeholders": {
+      "paymentAccountsName": "Digite o nome da conta",
+      "paymentAccountsId": "Digite o ID do PDV",
+      "paymentAccountsEndppointsKey": "Digite a chave de Endpoints",
+      "apiKey": "Digite a chave da API",
+      "apiSecret": "Digite o segredo da API"
+    },
+    "fieldset": {
+      "main": "Autenticação",
+      "accounts": "Contas de pagamento (projetos)"
+    },
+    "actions": {
+      "addPaymentAccountField": "Nova conta",
+      "clearAllPaymentAccounts": "Excluir todas"
+    }
+  }
 }

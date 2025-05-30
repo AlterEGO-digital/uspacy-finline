@@ -1,0 +1,43 @@
+{
+  "views": {
+    "success": {
+      "title": "Success!",
+      "reason": "Link is generateed.",
+      "description": "You can find it in the deal's notes.",
+      "back": "Back",
+      "toast": "Link is sucessfully generateed"
+    }
+  },
+  "paymentForm": {
+    "labels": {
+      "description": "Payment purpose",
+      "amount": "Amount",
+      "currency": "Currency",
+      "email": "Email",
+      "phone": "Phone number",
+      "paymentAccount": "Payment account",
+      "receiptDelivery": "Reciept delivery"
+    },
+    "placeholders": {
+      "description": "Enter the reason for payment",
+      "amount": "Enter amount",
+      "currency": "Select currency",
+      "email": "Enter or select email address",
+      "phone": "Enter or select phone number",
+      "paymentAccount": "Select payment account",
+      "receiptDelivery": "Choose delivery method"
+    },
+    "predefined": {
+      "receiptDelivery": {
+        "none": "None",
+        "sms": "SMS",
+        "email": "Email",
+        "viber": "Viber"
+      }
+    },
+    "submit": "Create payment link"
+  },
+  "deal": {
+    "notFound": "Cannot find the deal"
+  }
+}

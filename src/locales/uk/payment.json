@@ -1,0 +1,42 @@
+{
+  "views": {
+    "success": {
+      "title": "Успішно!",
+      "reason": "Посилання згенеровано.",
+      "description": "Ви можете знайти його в нотатках до угоди.",
+      "back": "Назад"
+    }
+  },
+  "paymentForm": {
+    "labels": {
+      "description": "Призначення платежу",
+      "amount": "Сума",
+      "currency": "Валюта",
+      "email": "Email",
+      "phone": "Номер телефону",
+      "paymentAccount": "Платіжний рахунок",
+      "receiptDelivery": "Надіслати квитанцію"
+    },
+    "placeholders": {
+      "description": "Вкажіть призначення платежу",
+      "amount": "Введіть суму",
+      "currency": "Оберіть валюту",
+      "email": "Введіть або оберіть email адресу",
+      "phone": "Введіть або оберіть номер телефону",
+      "paymentAccount": "Оберіть платіжний рахунок",
+      "receiptDelivery": "Оберіть спосіб доставки"
+    },
+    "predefined": {
+      "receiptDelivery": {
+        "none": "Не надсилати",
+        "sms": "SMS",
+        "email": "Email",
+        "viber": "Viber"
+      }
+    },
+    "submit": "Створити платіжне посилання"
+  },
+  "deal": {
+    "notFound": "Не вдалося знайти угоду"
+  }
+}
