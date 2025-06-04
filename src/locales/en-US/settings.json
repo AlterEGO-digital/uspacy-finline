@@ -5,24 +5,27 @@
     "labels": {
       "paymentAccountsName": "Account name",
       "paymentAccountsId": "Pos ID",
-      "paymentAccountsEndppointsKey": "Endpoints Key",
+      "paymentAccountsEndppointsKey": "Endpoint Key",
       "apiKey": "Api Key",
       "apiSecret": "Api Secret"
     },
     "placeholders": {
       "paymentAccountsName": "Enter account name",
       "paymentAccountsId": "Enter Pos ID",
-      "paymentAccountsEndppointsKey": "Enter Endpoints Key",
+      "paymentAccountsEndppointsKey": "Enter Endpoint Key",
       "apiKey": "Enter Api Key",
       "apiSecret": "Enter Api Secret"
     },
     "fieldset": {
-      "main": "Authentication",
-      "accounts": "Payment Accounts (projects)"
+      "main": "Your Payment Accounts (projects)",
+      "accounts": "Add Payment Accounts"
     },
     "actions": {
       "addPaymentAccountField": "New account",
-      "clearAllPaymentAccounts": "Delete all"
-    }
+      "clearAllPaymentAccounts": "Remove all",
+      "refetchPaymentAccounts": "Reload"
+    },
+    "emptyPaymentAccounts": "No payment accounts found...",
+    "errorPaymentAccounts": "An error occurred... Would you like to try refetch?"
   }
 }

@@ -19,7 +19,7 @@ const Settings: React.FC = () => {
 				}}
 			>
 				<Logo />
-				<Typography component="h1" fontSize="1.5rem" fontWeight={600} pt={3}>
+				<Typography component="h1" fontSize="1.5rem" fontWeight={600} pt={4}>
 					{t('settings:title')}
 				</Typography>
 				<SettingsForm />

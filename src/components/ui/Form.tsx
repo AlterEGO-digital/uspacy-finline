@@ -95,13 +95,14 @@ export const Fieldset = ({ title, color = '#ffffff', titleSize = '0.75rem', chil
 			sx={{
 				position: 'relative',
 				border: 'none',
+				m: 0,
 				'&:after': {
 					content: '""',
 					position: 'absolute',
-					width: '100%',
+					width: 'calc(100% - 16px)',
 					height: '1px',
 					backgroundColor: 'grey.400',
-					top: '-13px',
+					top: '-17px',
 				},
 				...sx,
 			}}
@@ -115,7 +116,7 @@ export const Fieldset = ({ title, color = '#ffffff', titleSize = '0.75rem', chil
 						fontSize: titleSize,
 						position: 'relative',
 						backgroundColor: 'background.brand',
-						padding: '4px 8px',
+						padding: '8px 12px',
 						borderRadius: '4px',
 						opacity: disabled ? '0.5' : '1',
 						zIndex: 2,

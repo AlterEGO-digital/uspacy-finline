@@ -5,24 +5,27 @@
     "labels": {
       "paymentAccountsName": "Назва рахунку",
       "paymentAccountsId": "Pos ID",
-      "paymentAccountsEndppointsKey": "Endpoints Key",
+      "paymentAccountsEndppointsKey": "Endpoint Key",
       "apiKey": "API key",
       "apiSecret": "API secret"
     },
     "placeholders": {
       "paymentAccountsName": "Введіть назву рахунку",
       "paymentAccountsId": "Введіть Pos ID",
-      "paymentAccountsEndppointsKey": "Введіть Endpoints Key",
+      "paymentAccountsEndppointsKey": "Введіть Endpoint Key",
       "apiKey": "Введіть API key",
       "apiSecret": "Введіть API secret"
     },
     "fieldset": {
-      "main": "Автентифікація",
-      "accounts": "Платіжні рахунки (проєкти)"
+      "main": "Ваші платіжні рахунки (проєкти)",
+      "accounts": "Додати платіжні рахунки"
     },
     "actions": {
       "addPaymentAccountField": "Новий рахунок",
-      "clearAllPaymentAccounts": "Видалити всі"
-    }
+      "clearAllPaymentAccounts": "Видалити всі",
+      "refetchPaymentAccounts": "Завантажити ще раз"
+    },
+    "emptyPaymentAccounts": "Платіжні рахунки не знайдено...",
+    "errorPaymentAccounts": "Сталася помилка... Бажаєте завантажити ще раз?"
   }
 }

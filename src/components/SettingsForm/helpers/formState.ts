@@ -1,17 +1,9 @@
-import { ISettings } from '../../../models/settings';
 import { SettingsFormValues } from '../types';
 
-export const getInitialFormValues = (settings: ISettings): SettingsFormValues => {
-	const accountFallback = [{ endpointsKey: '', posId: '', label: '' }];
+export const getInitialFormValues = (): SettingsFormValues => {
+	const accountFallback = [{ endpointsKey: '', posId: '', label: '', apiKey: '', apiSecret: '' }];
 
 	return {
-		apiKey: settings?.apiKey ?? '',
-		apiSecret: settings?.apiSecret ?? '',
-		paymentAccounts:
-			settings?.paymentAccounts?.map((account) => ({
-				posId: account.pos_id,
-				endpointsKey: account.endpoints_key,
-				label: account.name,
-			})) ?? accountFallback,
+		paymentAccounts: accountFallback,
 	};
 };

@@ -21,6 +21,10 @@ export interface IGeneratePaymentLinkDto {
 	payment_account: string;
 	receipt_delivery: string;
 }
+export interface IRawPaymentAccount {
+	name: string;
+	id: string;
+}
 export interface IPaymentAccount {
 	label: string;
 	id: string;

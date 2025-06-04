@@ -2,6 +2,15 @@
   "common": {
     "errors": {
       "unknown": "Algo deu errado."
+    },
+    "success": "Sucesso!",
+    "buttons": {
+      "confirmDelete": "Sim, excluir",
+      "cancel": "Cancelar"
+    },
+    "alerts": {
+      "conformDeleteItemTitle": "Tem certeza de que deseja excluir esta entidade?",
+      "conformDeleteItemText": "Esta ação não pode ser desfeita, pois ela será removida do servidor."
     }
   }
 }

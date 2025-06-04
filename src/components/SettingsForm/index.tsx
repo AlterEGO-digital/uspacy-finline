@@ -14,6 +14,7 @@ import { adoptToSaveSettingsDto } from '../../store/reducers/settings/mapper';
 import { BrandButton, LoadingBrandButton } from '../ui/BrandButton';
 import { Fieldset, PasswordTextInput, TextInput, TextInputLabel } from '../ui/Form';
 import { getInitialFormValues } from './helpers/formState';
+import { PaymentAccountsList } from './PaymentAccountsList';
 import { SettingsFormSchema, SettingsFormValues } from './types';
 
 interface IProps {
@@ -25,10 +26,14 @@ interface IProps {
 
 type ExtractStringKeys<T> = T extends string ? T : never;
 
+const defaultAccount = { posId: '', endpointsKey: '', label: '', apiKey: '', apiSecret: '' };
 export const SettingsFormComponent: React.FC<IProps> = ({ initial, onSubmit, disabled, loading = false }) => {
 	const { t } = useTranslation(['settings', 'validation']);
 
-	const form = useForm({ defaultValues: initial, resolver: valibotResolver(SettingsFormSchema) });
+	const form = useForm({
+		defaultValues: initial,
+		resolver: valibotResolver(SettingsFormSchema),
+	});
 	const { fields, append, remove } = useFieldArray({
 		control: form.control,
 		name: 'paymentAccounts',
@@ -54,52 +59,12 @@ export const SettingsFormComponent: React.FC<IProps> = ({ initial, onSubmit, dis
 								</Stack>
 							}
 							titleSize="0.75rem"
-							sx={{ pt: 5, pb: 3, px: 0 }}
+							sx={{ pt: 0, pb: 2, px: '8px' }}
 							disabled={isDisabled}
 						>
-							<Stack flexDirection="column" gap={4}>
-								<Controller
-									name="apiKey"
-									control={form.control}
-									render={({ field }) => {
-										const error = getError(field.name);
-										return (
-											<FormControl fullWidth error={!!error} disabled={isDisabled}>
-												<TextInputLabel>{t(getKey('labels.apiKey'))}</TextInputLabel>
-												<TextInput
-													{...field}
-													error={!!error}
-													helperText={t(error)}
-													placeholder={t(getKey('placeholders.apiKey'))}
-													disabled={isDisabled}
-												/>
-											</FormControl>
-										);
-									}}
-								/>
-								<Controller
-									name="apiSecret"
-									control={form.control}
-									render={({ field }) => {
-										const error = getError(field.name);
-										return (
-											<FormControl fullWidth error={!!error} disabled={isDisabled}>
-												<TextInputLabel>{t(getKey('labels.apiSecret'))}</TextInputLabel>
-												<TextInput
-													{...field}
-													error={!!error}
-													helperText={t(error)}
-													placeholder={t(getKey('placeholders.apiSecret'))}
-													disabled={isDisabled}
-												/>
-											</FormControl>
-										);
-									}}
-								/>
-							</Stack>
+							<PaymentAccountsList disabled={isDisabled} />
 						</Fieldset>
 					</Grid>
-
 					<Grid item xs={12}>
 						<Fieldset
 							title={
@@ -108,7 +73,7 @@ export const SettingsFormComponent: React.FC<IProps> = ({ initial, onSubmit, dis
 								</Stack>
 							}
 							titleSize="0.75rem"
-							sx={{ pt: 0, pb: 2, px: 0 }}
+							sx={{ pt: 0, pb: 2, px: '8px' }}
 							disabled={isDisabled}
 						>
 							<Stack gap={2} sx={{ pt: 3, pb: 2 }}>
@@ -158,6 +123,62 @@ export const SettingsFormComponent: React.FC<IProps> = ({ initial, onSubmit, dis
 														);
 													}}
 												/>
+
+												<Controller
+													name={`paymentAccounts.${index}.apiKey`}
+													control={form.control}
+													render={({ field: _field }) => {
+														const error = getError(_field.name, index);
+														return (
+															<FormControl fullWidth error={!!error || hasRootError} disabled={isDisabled}>
+																<TextInputLabel>{t(getKey('labels.apiKey'))}</TextInputLabel>
+																<PasswordTextInput
+																	{..._field}
+																	onChange={(e) => {
+																		if (hasRootError) {
+																			onAccountFieldChange(e, _field.name, index);
+																			return;
+																		}
+
+																		_field.onChange(e);
+																	}}
+																	error={!!error || hasRootError}
+																	helperText={t(error)}
+																	placeholder={t(getKey('placeholders.apiKey'))}
+																	disabled={isDisabled}
+																/>
+															</FormControl>
+														);
+													}}
+												/>
+												<Controller
+													name={`paymentAccounts.${index}.apiSecret`}
+													control={form.control}
+													render={({ field: _field }) => {
+														const error = getError(_field.name, index);
+														return (
+															<FormControl fullWidth error={!!error || hasRootError} disabled={isDisabled}>
+																<TextInputLabel>{t(getKey('labels.apiSecret'))}</TextInputLabel>
+																<PasswordTextInput
+																	{..._field}
+																	onChange={(e) => {
+																		if (hasRootError) {
+																			onAccountFieldChange(e, _field.name, index);
+																			return;
+																		}
+
+																		_field.onChange(e);
+																	}}
+																	error={!!error || hasRootError}
+																	helperText={t(error)}
+																	placeholder={t(getKey('placeholders.apiSecret'))}
+																	disabled={isDisabled}
+																/>
+															</FormControl>
+														);
+													}}
+												/>
+
 												<Stack flexDirection="row" gap={4}>
 													<Controller
 														name={`paymentAccounts.${index}.posId`}
@@ -236,7 +257,7 @@ export const SettingsFormComponent: React.FC<IProps> = ({ initial, onSubmit, dis
 									onClick={onDeleteAll}
 									sx={{ gap: 1, backgroundColor: 'error.light', '&:hover': { backgroundColor: 'error.main' } }}
 									variant="contained"
-									disabled={isDisabled}
+									disabled={isDisabled || fields.length < 2}
 								>
 									<DeleteIcon />
 									<span>{t(getKey('actions.clearAllPaymentAccounts'))}</span>
@@ -247,7 +268,13 @@ export const SettingsFormComponent: React.FC<IProps> = ({ initial, onSubmit, dis
 				</Grid>
 
 				<Stack pt={4} flexDirection="row">
-					<LoadingBrandButton fullWidth type="submit" variant="contained" loading={loading} disabled={isDisabled}>
+					<LoadingBrandButton
+						fullWidth
+						type="submit"
+						variant="contained"
+						loading={loading}
+						disabled={isDisabled || !form.formState.isDirty}
+					>
 						{t('settings:save')}
 					</LoadingBrandButton>
 				</Stack>
@@ -291,26 +318,26 @@ export const SettingsFormComponent: React.FC<IProps> = ({ initial, onSubmit, dis
 
 	function onDeleteAccount(index: number) {
 		if (index === 0) {
-			form.setValue(`paymentAccounts.${index}`, { posId: '', endpointsKey: '', label: '' });
+			form.setValue(`paymentAccounts.${index}`, { ...defaultAccount });
 			form.clearErrors(`paymentAccounts.${index}`);
 		} else {
 			remove(index);
 		}
 	}
 	function onDeleteAll() {
-		form.setValue('paymentAccounts', [{ posId: '', endpointsKey: '', label: '' }]);
+		form.setValue('paymentAccounts', [{ ...defaultAccount }]);
 		form.clearErrors('paymentAccounts');
 	}
 
 	function onAddAccount() {
-		append({ posId: '', endpointsKey: '', label: '' });
+		append({ ...defaultAccount });
 	}
 };
 
 const Settings: React.FC = () => {
 	const { errorNotification, successNotification } = useNotification();
-	const { settings, save, isSaveFailed, saveError, isSaved, isSaving } = useSettings();
-	const initial = useMemo(() => getInitialFormValues(settings), [settings]);
+	const { save, isSaveFailed, saveError, isSaved, isSaving } = useSettings();
+	const initial = useMemo(() => getInitialFormValues(), []);
 
 	const handleSettingsFormSubmit = useCallback(
 		async (values: SettingsFormValues) => {

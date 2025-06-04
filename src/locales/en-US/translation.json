@@ -3,6 +3,14 @@
     "errors": {
       "unknown": "Something went wrong."
     },
-    "success": "Success!"
+    "success": "Success!",
+    "buttons": {
+      "confirmDelete": "Yes, delete",
+      "cancel": "Cancel"
+    },
+    "alerts": {
+      "conformDeleteItemTitle": "Are you sure you want to delete this entity?",
+      "conformDeleteItemText": "This action you cannot undo, because it is being deleted from the server."
+    }
   }
 }

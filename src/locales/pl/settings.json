@@ -22,7 +22,10 @@
     },
     "actions": {
       "addPaymentAccountField": "Nowe konto",
-      "clearAllPaymentAccounts": "Usuń wszystkie"
-    }
+      "clearAllPaymentAccounts": "Usuń wszystkie",
+      "refetchPaymentAccounts": "Załaduj ponownie"
+    },
+    "emptyPaymentAccounts": "Nie znaleziono kont płatniczych...",
+    "errorPaymentAccounts": "Wystąpił błąd... Czy chcesz spróbować ponownie?"
   }
 }

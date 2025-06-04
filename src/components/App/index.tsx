@@ -16,7 +16,7 @@ const App: React.FC = () => {
 					display: 'flex',
 					flexDirection: 'column',
 
-					gap: 3,
+					gap: 4,
 				}}
 			>
 				<Logo />

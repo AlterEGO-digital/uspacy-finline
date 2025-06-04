@@ -22,7 +22,10 @@
     },
     "actions": {
       "addPaymentAccountField": "Nova conta",
-      "clearAllPaymentAccounts": "Excluir todas"
-    }
+      "clearAllPaymentAccounts": "Remover todas",
+      "refetchPaymentAccounts": "Recarregar"
+    },
+    "emptyPaymentAccounts": "Nenhuma conta de pagamento encontrada...",
+    "errorPaymentAccounts": "Ocorreu um erro... Deseja tentar recarregar?"
   }
 }

@@ -2,8 +2,9 @@ export const isStage = ['https://stage3.staging.uspacy.tech', 'http://localhost:
 export const API_URL = isStage ? '' : '';
 
 export const API_ENDPOINT = {
-	generatePaymentLink: () => '/payment',
-	paymentAccounts: () => '/payment',
+	generatePaymentLink: () => '/link/generate',
+	paymentAccounts: () => '/accounts',
 	getSettings: () => '/settings',
-	saveSettings: () => '/tokens/addToken',
+	saveSettings: () => '/accounts/store',
+	deletePaymentAccount: (id: string) => `/accounts/destroy/${id}`,
 };
