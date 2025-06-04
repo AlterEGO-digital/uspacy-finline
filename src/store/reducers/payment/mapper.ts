@@ -4,14 +4,14 @@ import { IGeneratePaymentLinkDto, IPaymentAccount, IRawPaymentAccount } from '..
 
 export const adoptToPaymentLinkDto = (values: GeneratePaymentFormValues, id: string): IGeneratePaymentLinkDto => {
 	return {
-		id,
+		order_id: id,
 		amount: values.amount,
 		currency: values.currency,
 		description: values.description,
-		email: isString(values.email) ? values.email : values.email.id,
-		phone: isString(values.phone) ? values.phone : values.phone.id,
+		customer_email: isString(values.email) ? values.email : values.email.id,
+		customer_phone: isString(values.phone) ? values.phone : values.phone.id,
 		payment_account: values.paymentAccount.id,
-		receipt_delivery: values.receiptDelivery.toLowerCase(),
+		f_receipt_delivery: values.receiptDelivery.toLowerCase(),
 	};
 };
 

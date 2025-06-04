@@ -12,14 +12,14 @@ export enum RecieptDeliveryEnum {
 }
 
 export interface IGeneratePaymentLinkDto {
-	id: string;
+	order_id: string;
 	description: string;
 	amount: string;
 	currency: PaymentCurrencyEnum;
-	email: string;
-	phone: string;
+	customer_email: string;
+	customer_phone: string;
 	payment_account: string;
-	receipt_delivery: string;
+	f_receipt_delivery: string;
 }
 export interface IRawPaymentAccount {
 	name: string;
