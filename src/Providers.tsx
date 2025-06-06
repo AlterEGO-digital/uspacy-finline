@@ -11,13 +11,13 @@ import { theme } from './static/styles/theme';
 const Providers: React.FC<{ children: ReactNode; userSettings?: IUserSettings }> = ({ children, userSettings }) => {
 	return (
 		<ThemeProvider theme={theme}>
-			<StoreProvider>
-				<UserSettingsProvider userSettings={userSettings}>
+			<UserSettingsProvider userSettings={userSettings}>
+				<StoreProvider>
 					<LocalizationProvider>
 						<SnackbarProvider autoHideDuration={2000}>{children}</SnackbarProvider>
 					</LocalizationProvider>
-				</UserSettingsProvider>
-			</StoreProvider>
+				</StoreProvider>
+			</UserSettingsProvider>
 		</ThemeProvider>
 	);
 };
