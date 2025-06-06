@@ -5,4 +5,4 @@ export interface IProps {
 	userSettings?: IUserSettings;
 }
 
-export type AppProps = IDeal;
+export type AppProps = Partial<IDeal>;

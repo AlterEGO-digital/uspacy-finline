@@ -1,5 +1,5 @@
 import { valibotResolver } from '@hookform/resolvers/valibot';
-import { Box, CircularProgress, FormControl, FormHelperText, Grid, MenuItem, Stack } from '@mui/material';
+import { Box, FormControl, FormHelperText, Grid, MenuItem, Stack } from '@mui/material';
 import React, { Suspense, useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import { Controller, FormProvider, useForm } from 'react-hook-form';
 import { useTranslation } from 'react-i18next';
@@ -9,10 +9,12 @@ import { useDeal } from '../../hooks/useDeal';
 import { useNotification } from '../../hooks/useNotification';
 import { usePaymentLink } from '../../hooks/usePaymentLink';
 import { usePaymentSourceData } from '../../hooks/usePaymentSourceData';
-import { adoptToPaymentLinkDto } from '../../store/reducers/payment/mapper';
+import { adaptToPaymentLinkDto } from '../../store/reducers/payment/mapper';
 import { LoadingBrandButton } from '../ui/BrandButton';
 import { DealNotFoundView } from '../ui/DealNotFoundView';
 import { Combobox, TextInput, TextInputLabel } from '../ui/Form';
+import { PaymentAccountsNotFoundView } from '../ui/PaymentAccountsNotFoundView';
+import { PaymentFormSkeleton } from '../ui/PaymentFormSkeleton';
 import { PaymnetLinkGenerationSuccess } from '../ui/PaymnetLinkGenerationSuccess';
 import { RenderEmailOption, RenderPhoneOption } from '../ui/RenderOption';
 import { getInitialPaymentFormState } from './helpers/formState';
@@ -27,7 +29,7 @@ interface IProps {
 }
 
 export const PaymentFormComponent: React.FC<IProps> = ({ initial, onSubmit, disabled, loading = false }) => {
-	const form = useForm({ defaultValues: initial, resolver: valibotResolver(GeneratePaymentFormSchema) });
+	const form = useForm<GeneratePaymentFormValues>({ defaultValues: initial, resolver: valibotResolver(GeneratePaymentFormSchema) });
 
 	const { accounts, currencies, recieptDeliveryTransports, emails, phones } = usePaymentSourceData();
 	const { t } = useTranslation(['payment', 'validation']);
@@ -44,7 +46,7 @@ export const PaymentFormComponent: React.FC<IProps> = ({ initial, onSubmit, disa
 		<FormProvider {...form}>
 			<Box
 				component="form"
-				sx={{ pt: 4 }}
+				sx={{ pt: 4, px: 1 }}
 				onSubmit={form.handleSubmit((values) => {
 					onSubmit(values);
 				})}
@@ -298,19 +300,21 @@ const PaymentForm: React.FC = () => {
 
 	const { deal } = useDeal();
 	const { generateLink, isLoading, error, isSuccess, reset } = usePaymentLink();
+	const { accounts, currencies, isLoading: isLoadingSourceData } = usePaymentSourceData();
 	const { errorNotification, successNotification } = useNotification();
 
-	const initial = useMemo(() => getInitialPaymentFormState(deal), [deal]);
+	const initial = useMemo(() => getInitialPaymentFormState(deal, currencies), [deal, currencies]);
+	const isIdleView = view === 'idle';
+	const isSuccessView = view === 'success';
 
+	const onGoBack = useCallback(() => setView('idle'), []);
 	const handleFormSubmit = useCallback(
 		async (values: GeneratePaymentFormValues) => {
-			const dto = adoptToPaymentLinkDto(values, deal.dealId);
+			const dto = adaptToPaymentLinkDto(values, deal.id);
 			await generateLink(dto);
 		},
 		[deal],
 	);
-
-	const onGoBack = useCallback(() => setView('idle'), []);
 
 	useEffect(() => {
 		if (error) {
@@ -342,17 +346,16 @@ const PaymentForm: React.FC = () => {
 		return <DealNotFoundView />;
 	}
 
-	const isIdleView = view === 'idle';
-	const isSuccessView = view === 'success';
+	if (isLoadingSourceData) {
+		return <PaymentFormSkeleton />;
+	}
+
+	if (!accounts?.length && !isLoadingSourceData) {
+		return <PaymentAccountsNotFoundView />;
+	}
 
 	return (
-		<Suspense
-			fallback={
-				<Box>
-					<CircularProgress />
-				</Box>
-			}
-		>
+		<Suspense fallback={<PaymentFormSkeleton />}>
 			{isIdleView && (
 				<Stack gap={2}>
 					<PaymentFormComponent onSubmit={handleFormSubmit} initial={initial} disabled={isLoading} loading={isLoading} />

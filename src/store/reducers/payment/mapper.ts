@@ -2,7 +2,7 @@ import { GeneratePaymentFormValues } from '../../../components/PaymentForm/types
 import { isString } from '../../../helpers/typeGuards';
 import { IGeneratePaymentLinkDto, IPaymentAccount, IRawPaymentAccount } from '../../../models/payment';
 
-export const adoptToPaymentLinkDto = (values: GeneratePaymentFormValues, id: string): IGeneratePaymentLinkDto => {
+export const adaptToPaymentLinkDto = (values: GeneratePaymentFormValues, id: string): IGeneratePaymentLinkDto => {
 	return {
 		order_id: id,
 		amount: values.amount,
@@ -10,7 +10,7 @@ export const adoptToPaymentLinkDto = (values: GeneratePaymentFormValues, id: str
 		description: values.description,
 		customer_email: isString(values.email) ? values.email : values.email.id,
 		customer_phone: isString(values.phone) ? values.phone : values.phone.id,
-		payment_account: values.paymentAccount.id,
+		payment_account: String(values.paymentAccount.id),
 		f_receipt_delivery: values.receiptDelivery.toLowerCase(),
 	};
 };

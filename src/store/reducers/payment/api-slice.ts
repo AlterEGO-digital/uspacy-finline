@@ -1,17 +1,18 @@
-import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
+import { createApi } from '@reduxjs/toolkit/query/react';
 
-import { API_ENDPOINT, API_URL } from '../../../const';
+import { API_ENDPOINT } from '../../../const';
+import { baseQuery } from '../../../helpers/api';
 import { IGeneratePaymentLinkDto, IPaymentAccount, IRawPaymentAccount, PaymentCurrencyEnum, RecieptDeliveryEnum } from '../../../models/payment';
 import { normalizePaymentAccount } from './mapper';
 
-const cacheKey = 'PAYMENTS';
+export const cacheKey = 'PAYMENTS';
 export const paymentApi = createApi({
 	reducerPath: 'paymentApi',
 	tagTypes: [cacheKey],
-	baseQuery: fetchBaseQuery({ baseUrl: API_URL }),
+	baseQuery: baseQuery(),
 	endpoints: (builder) => ({
 		generatePaymentLink: builder.mutation<void, IGeneratePaymentLinkDto>({
-			query: (dto) => ({ url: API_ENDPOINT.generatePaymentLink(), method: 'POST', body: JSON.stringify(dto) }),
+			query: (dto) => ({ url: API_ENDPOINT.generatePaymentLink(), method: 'POST', data: dto }),
 			transformErrorResponse: (error) => {
 				if (error.status === 401 || error.status === 403) {
 					return null;

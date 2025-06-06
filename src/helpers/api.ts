@@ -1,10 +1,11 @@
-import { BaseQueryFn } from '@reduxjs/toolkit/query';
+import { BaseQueryFn, FetchBaseQueryError } from '@reduxjs/toolkit/query';
 import axios, { AxiosError, AxiosRequestConfig } from 'axios';
 
+import { API_URL } from '../const';
 import { getToken } from './db';
 
 export const api = axios.create({
-	baseURL: process.env.API_URL,
+	baseURL: API_URL,
 });
 
 export const baseQuery =
@@ -19,7 +20,7 @@ export const baseQuery =
 			headers?: AxiosRequestConfig['headers'];
 		},
 		unknown,
-		unknown
+		FetchBaseQueryError
 	> =>
 	async ({ url, method, data, params, headers }) => {
 		try {

@@ -1,56 +1,56 @@
-import { check, email, enum_, InferInput, nonEmpty, object, pipe, string, trim, union } from 'valibot';
+import * as v from 'valibot';
 
 import { PaymentCurrencyEnum, RecieptDeliveryEnum } from '../../models/payment';
 
 const t = (key: string) => key;
 const getKey = (path: string) => `validation:common.${path}`;
 
-const PaymentAccountSchema = pipe(
-	object({ id: string(), label: string() }),
-	check((input) => input !== null, t(getKey('predefined'))),
+const PaymentAccountSchema = v.pipe(
+	v.object({ id: v.union([v.number(), v.string()]), label: v.string() }),
+	v.check((input) => input !== null, t(getKey('predefined'))),
 );
 
-const EmailSchema = union(
+const EmailSchema = v.union(
 	[
-		pipe(string(t(getKey('invalidString'))), trim(), nonEmpty(t(getKey('required'))), email(t(getKey('invalidEmail')))),
-		object({
-			id: string(t(getKey('invalidString'))),
-			label: string(t(getKey('invalidString'))),
-			owner: string(),
+		v.pipe(v.string(t(getKey('invalidString'))), v.trim(), v.nonEmpty(t(getKey('required'))), v.email(t(getKey('invalidEmail')))),
+		v.object({
+			id: v.string(t(getKey('invalidString'))),
+			label: v.string(t(getKey('invalidString'))),
+			owner: v.string(),
 		}),
 	],
 	t(getKey('required')),
 );
-const PhoneSchema = union(
+const PhoneSchema = v.union(
 	[
-		pipe(string(t(getKey('invalidString'))), trim(), nonEmpty(t(getKey('required')))),
-		object({
-			id: string(t(getKey('invalidString'))),
-			label: string(t(getKey('invalidString'))),
-			owner: string(),
+		v.pipe(v.string(t(getKey('invalidString'))), v.trim(), v.nonEmpty(t(getKey('required')))),
+		v.object({
+			id: v.string(t(getKey('invalidString'))),
+			label: v.string(t(getKey('invalidString'))),
+			owner: v.string(),
 		}),
 	],
 	t(getKey('required')),
 );
 
-export const GeneratePaymentFormSchema = object({
-	description: pipe(string(t(getKey('invalidString'))), trim(), nonEmpty(t(getKey('required')))),
-	amount: pipe(
-		string(t(getKey('invalidString'))),
-		trim(),
-		nonEmpty(t(getKey('required'))),
-		check(
+export const GeneratePaymentFormSchema = v.object({
+	description: v.pipe(v.string(t(getKey('invalidString'))), v.trim(), v.nonEmpty(t(getKey('required')))),
+	amount: v.pipe(
+		v.string(t(getKey('invalidString'))),
+		v.trim(),
+		v.nonEmpty(t(getKey('required'))),
+		v.check(
 			(input) => !isNaN(Number(input)),
 			() => t(getKey('invalidNumber')),
 		),
 	),
-	currency: enum_(PaymentCurrencyEnum),
+	currency: v.enum(PaymentCurrencyEnum),
 	email: EmailSchema,
 	phone: PhoneSchema,
 	paymentAccount: PaymentAccountSchema,
-	receiptDelivery: enum_(RecieptDeliveryEnum),
+	receiptDelivery: v.enum(RecieptDeliveryEnum),
 });
 
-export type GeneratePaymentFormValues = InferInput<typeof GeneratePaymentFormSchema>;
+export type GeneratePaymentFormValues = v.InferInput<typeof GeneratePaymentFormSchema>;
 
 export type ComboboxRenderableOption = { id: string; label: string; owner: string };
