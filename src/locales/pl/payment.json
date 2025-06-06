@@ -5,6 +5,10 @@
       "reason": "Link został pomyślnie wygenerowany.",
       "description": "Znajdziesz go w notatkach dotyczących transakcji.",
       "back": "Wstecz"
+    },
+    "empty": {
+      "title": "Brak kont płatniczych",
+      "reason": "Wygląda na to, że nie dodałeś jeszcze żadnych kont płatniczych. Nie możesz kontynuować bez nich. Skontaktuj się z administratorem lub właścicielem przestrzeni."
     }
   },
   "paymentForm": {

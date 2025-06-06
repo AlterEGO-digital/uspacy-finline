@@ -7,18 +7,23 @@
       "paymentAccountsId": "ID punktu sprzedaży",
       "paymentAccountsEndppointsKey": "Klucz Endpoints",
       "apiKey": "Klucz API",
-      "apiSecret": "Sekret API"
+      "apiSecret": "Sekret API",
+      "funnel": "Lejek",
+      "stage": "Etap, do którego przenieść"
     },
     "placeholders": {
       "paymentAccountsName": "Wprowadź nazwę konta",
       "paymentAccountsId": "Wprowadź ID punktu sprzedaży",
       "paymentAccountsEndppointsKey": "Wprowadź klucz Endpoints",
       "apiKey": "Wprowadź klucz API",
-      "apiSecret": "Wprowadź sekret API"
+      "apiSecret": "Wprowadź sekret API",
+      "funnel": "Wybierz lejek",
+      "stage": "Wybierz etap"
     },
     "fieldset": {
       "main": "Uwierzytelnianie",
-      "accounts": "Konta płatnicze (projekty)"
+      "accounts": "Konta płatnicze (projekty)",
+      "afterPayment": "Ustawienia statusu umowy po płatności"
     },
     "actions": {
       "addPaymentAccountField": "Nowe konto",

@@ -6,6 +6,10 @@
       "description": "You can find it in the deal's notes.",
       "back": "Back",
       "toast": "Link is sucessfully generateed"
+    },
+    "empty": {
+      "title": "No payment accounts",
+      "reason": "It seems your have add no payment accounts yet. You cannot proceed without them. Please, contact you admin or space owner."
     }
   },
   "paymentForm": {
