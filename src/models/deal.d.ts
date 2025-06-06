@@ -22,5 +22,5 @@ export interface IDealAmount {
 export interface IDeal {
 	contacts: IDealContact[];
 	amount: IDealAmount;
-	dealId: string;
+	id: string;
 }

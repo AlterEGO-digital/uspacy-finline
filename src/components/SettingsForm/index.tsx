@@ -10,11 +10,12 @@ import { useNotification } from '../../hooks/useNotification';
 import { useSettings } from '../../hooks/useSettings';
 import AddIcon from '../../static/images/plus-circle-01.svg';
 import DeleteIcon from '../../static/images/trash-bin-01.svg';
-import { adoptToSaveSettingsDto } from '../../store/reducers/settings/mapper';
+import { adaptToSaveDealStatusDto, adaptToSaveSettingsDto } from '../../store/reducers/settings/mapper';
 import { BrandButton, LoadingBrandButton } from '../ui/BrandButton';
 import { Fieldset, PasswordTextInput, TextInput, TextInputLabel } from '../ui/Form';
 import { getInitialFormValues } from './helpers/formState';
 import { PaymentAccountsList } from './PaymentAccountsList';
+import { FunnelField, StageField } from './StageFields';
 import { SettingsFormSchema, SettingsFormValues } from './types';
 
 interface IProps {
@@ -30,7 +31,7 @@ const defaultAccount = { posId: '', endpointsKey: '', label: '', apiKey: '', api
 export const SettingsFormComponent: React.FC<IProps> = ({ initial, onSubmit, disabled, loading = false }) => {
 	const { t } = useTranslation(['settings', 'validation']);
 
-	const form = useForm({
+	const form = useForm<SettingsFormValues>({
 		defaultValues: initial,
 		resolver: valibotResolver(SettingsFormSchema),
 	});
@@ -63,6 +64,23 @@ export const SettingsFormComponent: React.FC<IProps> = ({ initial, onSubmit, dis
 							disabled={isDisabled}
 						>
 							<PaymentAccountsList disabled={isDisabled} />
+						</Fieldset>
+					</Grid>
+					<Grid item xs={12}>
+						<Fieldset
+							title={
+								<Stack direction="row" alignItems="center" gap={1}>
+									{t(getKey('fieldset.afterPayment'))}
+								</Stack>
+							}
+							titleSize="0.75rem"
+							sx={{ pt: 2, pb: 2, px: '8px' }}
+							disabled={isDisabled}
+						>
+							<Stack gap={4} sx={{ pt: 3, pb: 2 }}>
+								<FunnelField disabled={isDisabled} />
+								<StageField disabled={isDisabled} />
+							</Stack>
 						</Fieldset>
 					</Grid>
 					<Grid item xs={12}>
@@ -336,13 +354,16 @@ export const SettingsFormComponent: React.FC<IProps> = ({ initial, onSubmit, dis
 
 const Settings: React.FC = () => {
 	const { errorNotification, successNotification } = useNotification();
-	const { save, isSaveFailed, saveError, isSaved, isSaving } = useSettings();
+	const { save, isSaveFailed, saveError, isSaved, isSaving, requestId } = useSettings();
 	const initial = useMemo(() => getInitialFormValues(), []);
+	const rerenderKey = isSaved ? '' : requestId; // resets form
 
 	const handleSettingsFormSubmit = useCallback(
 		async (values: SettingsFormValues) => {
-			const dto = adoptToSaveSettingsDto(values);
-			await save(dto);
+			const settingsDto = adaptToSaveSettingsDto(values);
+			const statusDto = adaptToSaveDealStatusDto(values);
+
+			await save(settingsDto, statusDto);
 		},
 		[save],
 	);
@@ -367,13 +388,7 @@ const Settings: React.FC = () => {
 				</Box>
 			}
 		>
-			<SettingsFormComponent initial={initial} onSubmit={handleSettingsFormSubmit} disabled={isSaving} loading={isSaving} />
-
-			{isSaving && (
-				<Box>
-					<CircularProgress />
-				</Box>
-			)}
+			<SettingsFormComponent key={rerenderKey} initial={initial} onSubmit={handleSettingsFormSubmit} disabled={isSaving} loading={isSaving} />
 		</Suspense>
 	);
 };

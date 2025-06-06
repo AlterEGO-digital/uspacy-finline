@@ -118,7 +118,6 @@ export const Fieldset = ({ title, color = '#ffffff', titleSize = '0.75rem', chil
 						backgroundColor: 'background.brand',
 						padding: '8px 12px',
 						borderRadius: '4px',
-						opacity: disabled ? '0.5' : '1',
 						zIndex: 2,
 						'&:after': {
 							content: '""',
@@ -130,6 +129,25 @@ export const Fieldset = ({ title, color = '#ffffff', titleSize = '0.75rem', chil
 							backgroundColor: '#ffffff',
 							zIndex: 1,
 						},
+						'& *': {
+							position: 'relative',
+							zIndex: 3,
+							opacity: disabled ? '0.5' : '1',
+						},
+						...(disabled && {
+							'&:before': {
+								content: '""',
+								position: 'absolute',
+								width: '100%',
+								height: '100%',
+								top: 0,
+								left: 0,
+								backgroundColor: '#ffffff',
+								borderRadius: 'inherit',
+								zIndex: 2,
+								opacity: disabled ? '0.5' : '1',
+							},
+						}),
 					}}
 				>
 					{title}

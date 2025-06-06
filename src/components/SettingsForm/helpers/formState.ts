@@ -5,5 +5,7 @@ export const getInitialFormValues = (): SettingsFormValues => {
 
 	return {
 		paymentAccounts: accountFallback,
+		funnel: { label: '', id: '' },
+		stage: { label: '', id: '' },
 	};
 };

@@ -1,5 +1,6 @@
 import { Paper, Typography } from '@mui/material';
 import Box from '@mui/material/Box';
+import { StoreProvider as UspacyStore } from '@uspacy/store';
 import React from 'react';
 import { useTranslation } from 'react-i18next';
 
@@ -30,9 +31,11 @@ const Settings: React.FC = () => {
 
 const SettingsWrap: React.FC<IProps> = ({ userSettings }) => {
 	return (
-		<Providers userSettings={userSettings}>
-			<Settings />
-		</Providers>
+		<UspacyStore>
+			<Providers userSettings={userSettings}>
+				<Settings />
+			</Providers>
+		</UspacyStore>
 	);
 };
 
