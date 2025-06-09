@@ -18,7 +18,7 @@ export const PaymentAccountsList = ({ disabled }: PaymentAccountsListProps) => {
 
 	if (isLoading && !error) {
 		return (
-			<Stack sx={{ height: '200px', alignItems: 'center', justifyContent: 'center' }}>
+			<Stack sx={{ minHeight: '200px', alignItems: 'center', justifyContent: 'center' }}>
 				<CircularProgress size="1.5rem" />
 			</Stack>
 		);

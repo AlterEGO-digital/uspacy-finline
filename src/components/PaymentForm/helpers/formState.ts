@@ -1,3 +1,4 @@
+import { isDev, isStage } from '../../../const';
 import { IDeal } from '../../../models/deal';
 import { PaymentCurrencyEnum, RecieptDeliveryEnum } from '../../../models/payment';
 import { GeneratePaymentFormValues } from '../types';
@@ -7,7 +8,7 @@ export const getInitialPaymentFormState = (deal: IDeal, currencies: PaymentCurre
 	const [fallbackEmail] = contact?.email ?? [];
 
 	const email = contact?.email?.find((emailAddress) => !!emailAddress.main) || fallbackEmail;
-	const currency = currencies.find((c) => c === deal?.amount?.currency) || PaymentCurrencyEnum.UAH;
+	const currency = isDev || isStage ? PaymentCurrencyEnum.XTS : currencies.find((c) => c === deal?.amount?.currency) || PaymentCurrencyEnum.UAH;
 	const amount = deal?.amount?.value || '0.00';
 
 	return {

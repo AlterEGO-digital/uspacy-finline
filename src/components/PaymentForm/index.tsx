@@ -19,6 +19,7 @@ import { PaymnetLinkGenerationSuccess } from '../ui/PaymnetLinkGenerationSuccess
 import { RenderEmailOption, RenderPhoneOption } from '../ui/RenderOption';
 import { getInitialPaymentFormState } from './helpers/formState';
 import { allowDigitsOnly } from './helpers/input';
+import { getCurrencyLabel } from './helpers/labels';
 import { GeneratePaymentFormSchema, GeneratePaymentFormValues } from './types';
 
 interface IProps {
@@ -113,10 +114,10 @@ export const PaymentFormComponent: React.FC<IProps> = ({ initial, onSubmit, disa
 											placeholder={t(getKey('placeholders.currency'))}
 											disabled={isDisabled}
 										>
-											{currencies?.map((cur) => {
+											{currencies?.map((currency) => {
 												return (
-													<MenuItem key={cur} value={cur}>
-														{cur}
+													<MenuItem key={currency} value={currency}>
+														{getCurrencyLabel(currency)}
 													</MenuItem>
 												);
 											})}

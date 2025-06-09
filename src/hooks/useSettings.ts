@@ -24,7 +24,7 @@ export const useSettings = () => {
 		}
 	};
 
-	const isLoading = accounts.isLoading || accounts.isFetching || dealStatus.isLoading || dealStatus.isFetching;
+	const isLoading = accounts.isLoading || dealStatus.isLoading;
 	const isError = accounts.isError;
 	const error = accounts.error;
 

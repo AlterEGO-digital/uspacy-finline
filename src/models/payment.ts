@@ -2,6 +2,7 @@ export enum PaymentCurrencyEnum {
 	'UAH' = 'UAH',
 	'USD' = 'USD',
 	'EUR' = 'EUR',
+	'XTS' = 'XTS',
 }
 
 export enum RecieptDeliveryEnum {
@@ -12,13 +13,13 @@ export enum RecieptDeliveryEnum {
 }
 
 export interface IGeneratePaymentLinkDto {
-	order_id: string;
+	deal_id: string;
 	description: string;
 	amount: string;
 	currency: PaymentCurrencyEnum;
 	customer_email: string;
 	customer_phone: string;
-	payment_account: string;
+	account_id: string;
 	f_receipt_delivery: string;
 }
 export interface IRawPaymentAccount {

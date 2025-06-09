@@ -1,6 +1,6 @@
 import { createApi } from '@reduxjs/toolkit/query/react';
 
-import { API_ENDPOINT } from '../../../const';
+import { API_ENDPOINT, isDev, isStage } from '../../../const';
 import { baseQuery } from '../../../helpers/api';
 import { IGeneratePaymentLinkDto, IPaymentAccount, IRawPaymentAccount, PaymentCurrencyEnum, RecieptDeliveryEnum } from '../../../models/payment';
 import { normalizePaymentAccount } from './mapper';
@@ -53,8 +53,17 @@ export const paymentApi = createApi({
 		}),
 		getCurrencyList: builder.query<PaymentCurrencyEnum[], void>({
 			queryFn: () => {
+				const currencies = ['UAH', 'USD', 'EUR'] as PaymentCurrencyEnum[];
+				const testCurrency = PaymentCurrencyEnum.XTS;
+
+				if (isDev || isStage) {
+					return {
+						data: [testCurrency, ...currencies],
+					};
+				}
+
 				return {
-					data: ['UAH', 'USD', 'EUR'] as PaymentCurrencyEnum[],
+					data: currencies,
 				};
 			},
 		}),
