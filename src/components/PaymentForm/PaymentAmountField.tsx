@@ -1,12 +1,12 @@
 import { FormControl, FormHelperText } from '@mui/material';
-import React from 'react';
+import React, { useMemo } from 'react';
 import { Controller, useFormContext } from 'react-hook-form';
 import { useTranslation } from 'react-i18next';
 
 import { PaymentCurrencyEnum } from '../../models/payment';
 import { TextInput, TextInputLabel } from '../ui/Form';
 import { isTestCurrency, VALID_TEST_PAYMENT_AMOUNT } from './helpers/currency';
-import { allowDigitsOnly } from './helpers/input';
+import { createDigitsHandler } from './helpers/input';
 
 type PaymentAmountFieldProps = {
 	getError: (key: string) => string;
@@ -19,6 +19,8 @@ export const PaymentAmountField = ({ getError, getTranslationKey, isDisabled }: 
 	const { t } = useTranslation(['payment', 'validation']);
 	const currency = watch('currency') as PaymentCurrencyEnum;
 	const isReadonly = isTestCurrency(currency);
+
+	const allowDigitsOnly = useMemo(() => createDigitsHandler({ maxDecimal: 2 }), []);
 
 	return (
 		<Controller

@@ -312,6 +312,7 @@ const PaymentForm: React.FC = () => {
 	useEffect(() => {
 		if (isSuccess) {
 			successNotification();
+			setView('success');
 		}
 	}, [isSuccess]);
 
