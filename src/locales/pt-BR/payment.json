@@ -30,6 +30,9 @@
       "paymentAccount": "Selecione a conta de pagamento",
       "receiptDelivery": "Escolha o método de entrega"
     },
+    "helperText": {
+      "testPayment": "Pagamento de teste. O valor é definido pelo sistema de pagamento."
+    },
     "predefined": {
       "receiptDelivery": {
         "none": "Nenhum",

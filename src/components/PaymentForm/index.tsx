@@ -18,8 +18,8 @@ import { PaymentFormSkeleton } from '../ui/PaymentFormSkeleton';
 import { PaymnetLinkGenerationSuccess } from '../ui/PaymnetLinkGenerationSuccess';
 import { RenderEmailOption, RenderPhoneOption } from '../ui/RenderOption';
 import { getInitialPaymentFormState } from './helpers/formState';
-import { allowDigitsOnly } from './helpers/input';
 import { getCurrencyLabel } from './helpers/labels';
+import { PaymentAmountField } from './PaymentAmountField';
 import { GeneratePaymentFormSchema, GeneratePaymentFormValues } from './types';
 
 interface IProps {
@@ -75,26 +75,7 @@ export const PaymentFormComponent: React.FC<IProps> = ({ initial, onSubmit, disa
 						/>
 					</Grid>
 					<Grid item xs={8}>
-						<Controller
-							name="amount"
-							control={form.control}
-							render={({ field }) => {
-								const error = getError(field.name);
-								return (
-									<FormControl fullWidth error={!!error} disabled={isDisabled}>
-										<TextInputLabel>{t(getKey('labels.amount'))}</TextInputLabel>
-										<TextInput
-											{...field}
-											onKeyDown={allowDigitsOnly}
-											error={!!error}
-											helperText={t(error)}
-											placeholder={t(getKey('placeholders.amount'))}
-											disabled={isDisabled}
-										/>
-									</FormControl>
-								);
-							}}
-						/>
+						<PaymentAmountField isDisabled={isDisabled} getError={getError} getTranslationKey={getKey} />
 					</Grid>
 					<Grid item xs={4}>
 						<Controller

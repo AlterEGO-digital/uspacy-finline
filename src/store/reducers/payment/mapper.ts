@@ -1,3 +1,4 @@
+import { isTestCurrency, VALID_TEST_PAYMENT_AMOUNT } from '../../../components/PaymentForm/helpers/currency';
 import { GeneratePaymentFormValues } from '../../../components/PaymentForm/types';
 import { isString } from '../../../helpers/typeGuards';
 import { IGeneratePaymentLinkDto, IPaymentAccount, IRawPaymentAccount } from '../../../models/payment';
@@ -5,7 +6,7 @@ import { IGeneratePaymentLinkDto, IPaymentAccount, IRawPaymentAccount } from '..
 export const adaptToPaymentLinkDto = (values: GeneratePaymentFormValues, id: string): IGeneratePaymentLinkDto => {
 	return {
 		deal_id: id,
-		amount: values.amount,
+		amount: isTestCurrency(values.currency) ? VALID_TEST_PAYMENT_AMOUNT : Number(values.amount),
 		currency: values.currency,
 		description: values.description,
 		customer_email: isString(values.email) ? values.email : values.email.id,

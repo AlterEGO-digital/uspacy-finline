@@ -1,6 +1,5 @@
 import { PaymentCurrencyEnum } from '../../../models/payment';
-
-const isTestCurrency = (currency: PaymentCurrencyEnum) => currency === PaymentCurrencyEnum.XTS;
+import { isTestCurrency } from './currency';
 
 export const getCurrencyLabel = (option: PaymentCurrencyEnum) => {
 	return isTestCurrency(option) ? `${option} (for test account)` : option;

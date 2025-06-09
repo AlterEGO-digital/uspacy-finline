@@ -31,6 +31,9 @@
       "paymentAccount": "Select payment account",
       "receiptDelivery": "Choose delivery method"
     },
+    "helperText": {
+      "testPayment": "Test payment. The amount is fixed by the payment system."
+    },
     "predefined": {
       "receiptDelivery": {
         "none": "None",

@@ -15,7 +15,7 @@ export enum RecieptDeliveryEnum {
 export interface IGeneratePaymentLinkDto {
 	deal_id: string;
 	description: string;
-	amount: string;
+	amount: number;
 	currency: PaymentCurrencyEnum;
 	customer_email: string;
 	customer_phone: string;

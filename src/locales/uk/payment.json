@@ -30,6 +30,9 @@
       "paymentAccount": "Оберіть платіжний рахунок",
       "receiptDelivery": "Оберіть спосіб доставки"
     },
+    "helperText": {
+      "testPayment": "Тестовой платіж. Сума фіксована платіжною системою"
+    },
     "predefined": {
       "receiptDelivery": {
         "none": "Не надсилати",

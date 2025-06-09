@@ -52,5 +52,4 @@ export const GeneratePaymentFormSchema = v.object({
 });
 
 export type GeneratePaymentFormValues = v.InferInput<typeof GeneratePaymentFormSchema>;
-
 export type ComboboxRenderableOption = { id: string; label: string; owner: string };
