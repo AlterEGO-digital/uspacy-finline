@@ -1,3 +1,16 @@
 {
-  "helloWorld": "Witaj świecie"
+  "common": {
+    "errors": {
+      "unknown": "Coś poszło nie tak."
+    },
+    "success": "Sukces!",
+    "buttons": {
+      "confirmDelete": "Tak, usuń",
+      "cancel": "Anuluj"
+    },
+    "alerts": {
+      "conformDeleteItemTitle": "Czy na pewno chcesz usunąć tę encję?",
+      "conformDeleteItemText": "Tej operacji nie można cofnąć, ponieważ zostanie usunięta z serwera."
+    }
+  }
 }

@@ -1,0 +1,10 @@
+{
+  "common": {
+    "invalidString": "Nieprawidłowy tekst.",
+    "required": "To pole jest wymagane.",
+    "invalidEmail": "Nieprawidłowy adres e-mail.",
+    "predefined": "Proszę wybrać wartość z listy.",
+    "invalidNumber": "Dozwolone są tylko liczby.",
+    "optionalOrFilled": "Wszystkie pola muszą być albo wypełnione, albo puste."
+  }
+}

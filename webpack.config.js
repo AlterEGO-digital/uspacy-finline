@@ -8,7 +8,7 @@ const Dotenv = require('dotenv-webpack');
 
 const { NODE_ENV } = process.env;
 const isDev = NODE_ENV === 'development';
-const appName = 'UspacyBirthdayWidget';
+const appName = 'Finline';
 
 module.exports = {
 	entry: './src/index.ts',
@@ -47,10 +47,15 @@ module.exports = {
 				test: /\.(ts|tsx)$/,
 				loader: 'ts-loader',
 			},
+			{
+				test: /\.svg$/i,
+				issuer: /\.[jt]sx?$/,
+				use: [{ loader: '@svgr/webpack', options: { icon: true } }],
+			},
 		],
 	},
 	resolve: {
-		extensions: ['.tsx', '.ts', '.js'],
+		extensions: ['.tsx', '.ts', '.js', '.svg'],
 	},
 	plugins: [
 		new ModuleFederationPlugin({

@@ -1,4 +1,36 @@
 {
   "title": "Configurações",
-  "save": "Salvar"
+  "save": "Salvar",
+  "settingsForm": {
+    "labels": {
+      "paymentAccountsName": "Nome da conta",
+      "paymentAccountsId": "ID do PDV",
+      "paymentAccountsEndppointsKey": "Chave de Endpoints",
+      "apiKey": "Chave da API",
+      "apiSecret": "Segredo da API",
+      "funnel": "Funil",
+      "stage": "Etapa para a qual mover"
+    },
+    "placeholders": {
+      "paymentAccountsName": "Digite o nome da conta",
+      "paymentAccountsId": "Digite o ID do PDV",
+      "paymentAccountsEndppointsKey": "Digite a chave de Endpoints",
+      "apiKey": "Digite a chave da API",
+      "apiSecret": "Digite o segredo da API",
+      "funnel": "Selecione o funil",
+      "stage": "Selecione a etapa"
+    },
+    "fieldset": {
+      "main": "Autenticação",
+      "accounts": "Contas de pagamento (projetos)",
+      "afterPayment": "Configuração do status do contrato após o pagamento"
+    },
+    "actions": {
+      "addPaymentAccountField": "Nova conta",
+      "clearAllPaymentAccounts": "Remover todas",
+      "refetchPaymentAccounts": "Recarregar"
+    },
+    "emptyPaymentAccounts": "Nenhuma conta de pagamento encontrada...",
+    "errorPaymentAccounts": "Ocorreu um erro... Deseja tentar recarregar?"
+  }
 }

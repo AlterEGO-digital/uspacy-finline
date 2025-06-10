@@ -1,3 +1,16 @@
 {
-  "helloWorld": "Привіт Світ"
+  "common": {
+    "errors": {
+      "unknown": "Щось пішло не так."
+    },
+    "success": "Успішно!",
+    "buttons": {
+      "confirmDelete": "Так, видалити",
+      "cancel": "Скасувати"
+    },
+    "alerts": {
+      "conformDeleteItemTitle": "Ви впевнені, що хочете видалити цю сутність?",
+      "conformDeleteItemText": "Цю дію неможливо скасувати, оскільки її буде видалено з сервера."
+    }
+  }
 }

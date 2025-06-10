@@ -1,4 +1,36 @@
 {
-  "title": "Settings",
-  "save": "Save"
+  "title": "Application Settings",
+  "save": "Save",
+  "settingsForm": {
+    "labels": {
+      "paymentAccountsName": "Account name",
+      "paymentAccountsId": "Pos ID",
+      "paymentAccountsEndppointsKey": "Endpoint Key",
+      "apiKey": "Api Key",
+      "apiSecret": "Api Secret",
+      "funnel": "Funnel",
+      "stage": "Stage to move to"
+    },
+    "placeholders": {
+      "paymentAccountsName": "Enter account name",
+      "paymentAccountsId": "Enter Pos ID",
+      "paymentAccountsEndppointsKey": "Enter Endpoint Key",
+      "apiKey": "Enter Api Key",
+      "apiSecret": "Enter Api Secret",
+      "funnel": "Select funnel",
+      "stage": "Select stage"
+    },
+    "fieldset": {
+      "main": "Your Payment Accounts (projects)",
+      "accounts": "Add Payment Accounts",
+      "afterPayment": "Config deal status on payment"
+    },
+    "actions": {
+      "addPaymentAccountField": "New account",
+      "clearAllPaymentAccounts": "Remove all",
+      "refetchPaymentAccounts": "Reload"
+    },
+    "emptyPaymentAccounts": "No payment accounts found...",
+    "errorPaymentAccounts": "An error occurred... Would you like to try refetch?"
+  }
 }
