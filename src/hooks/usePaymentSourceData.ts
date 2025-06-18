@@ -10,6 +10,8 @@ export const usePaymentSourceData = () => {
 	const currencies = getCurrencyList();
 	const reciepts = getRecieptDeliveryList();
 
+	// eslint-disable-next-line no-console
+	console.log('deal -->', deal);
 	const emails = useMemo(
 		() =>
 			deal?.contacts
