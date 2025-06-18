@@ -10,18 +10,18 @@ export const usePaymentSourceData = () => {
 	const currencies = getCurrencyList();
 	const reciepts = getRecieptDeliveryList();
 
-	// eslint-disable-next-line no-console
-	console.log('deal -->', deal);
-	const emails = useMemo(
-		() =>
+	const emails = useMemo(() => {
+		return (
 			deal?.contacts
-				?.map((contact) =>
-					contact.email?.map((email) => ({ id: email?.value ?? '', label: email?.value ?? '', owner: contact?.title ?? '' })),
-				)
+				?.map((contact) => {
+					if (!Array.isArray(contact?.email)) return [];
+
+					return contact.email.map((email) => ({ id: email?.value ?? '', label: email?.value ?? '', owner: contact?.title ?? '' }));
+				})
 				.flat()
-				.filter((email) => !!email?.label) ?? [],
-		[deal],
-	);
+				.filter((email) => !!email?.label) ?? []
+		);
+	}, [deal]);
 	const phones = useMemo(
 		() =>
 			deal?.contacts?.map((contact) => ({ id: contact.phone, label: contact.phone, owner: contact.title })).filter((phone) => !!phone.label) ??
