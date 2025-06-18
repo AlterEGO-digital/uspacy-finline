@@ -1,7 +1,7 @@
 export const isStage = ['https://stage3.staging.uspacy.tech', 'https://partners.staging.uspacy.tech', 'http://localhost:8080'].includes(
 	window.location.origin,
 );
-export const API_URL = isStage ? 'http://test-finline.alterego.biz.ua' : 'https://finline-uspacy.alterego.digital';
+export const API_URL = isStage ? 'https://test-finline.alterego.biz.ua' : 'https://finline-uspacy.alterego.digital';
 
 export const isDev = process.env.NODE_ENV === 'development';
 
