@@ -1,4 +1,3 @@
-import { Paper } from '@mui/material';
 import Box from '@mui/material/Box';
 import React, { useMemo } from 'react';
 
@@ -10,7 +9,7 @@ import { AppProps, IProps } from './types';
 
 const App: React.FC = () => {
 	return (
-		<Paper elevation={3} sx={{ maxWidth: '600px', mx: 'auto', p: 4, borderRadius: 3 }}>
+		<Box sx={{ maxWidth: '600px', mx: 'auto', p: 4, borderRadius: 3 }}>
 			<Box
 				sx={{
 					display: 'flex',
@@ -22,13 +21,14 @@ const App: React.FC = () => {
 				<Logo />
 				<PaymentForm />
 			</Box>
-		</Paper>
+		</Box>
 	);
 };
 
 const AppWrap: React.FC<IProps & AppProps> = ({ userSettings, contacts, amount, id }) => {
 	const deal = useMemo(() => ({ amount, contacts, id }), [amount, contacts, id]);
-
+	// eslint-disable-next-line no-console
+	console.log('deal -->', deal);
 	return (
 		<Providers userSettings={userSettings}>
 			<AppProvider deal={deal}>
