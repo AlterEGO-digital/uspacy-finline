@@ -12,12 +12,12 @@ type PaymentAccountProps = {
 	account: IPaymentAccount;
 };
 export const PaymentAccount = ({ account }: PaymentAccountProps) => {
-	const { deletePaymentAccount, isLoading, isError, error } = usePaymentAccount();
+	const { deletePaymentAccount, isLocalLoading, isError, error } = usePaymentAccount();
 	const { errorNotification } = useNotification();
 
 	useEffect(() => {
 		if (isError) {
-			errorNotification(getErrorMessage(error));
+			errorNotification(getErrorMessage(error).message);
 		}
 	}, [isError]);
 
@@ -29,8 +29,8 @@ export const PaymentAccount = ({ account }: PaymentAccountProps) => {
 						deletePaymentAccount(account.id);
 					}}
 					trigger={
-						<IconButton edge="end" color="error" size="small" disabled={isLoading}>
-							{isLoading ? <CircularProgress size="1rem" color="inherit" /> : <DeleteIcon />}
+						<IconButton edge="end" color="error" size="small" disabled={isLocalLoading}>
+							{isLocalLoading ? <CircularProgress size="1rem" color="inherit" /> : <DeleteIcon />}
 						</IconButton>
 					}
 				/>

@@ -7,6 +7,7 @@ import { useTranslation } from 'react-i18next';
 import { getErrorMessage } from '../../helpers/errors';
 import { isNumber } from '../../helpers/typeGuards';
 import { useNotification } from '../../hooks/useNotification';
+import { usePaymentAccountsList } from '../../hooks/usePaymentAccountsList';
 import { useSettings } from '../../hooks/useSettings';
 import AddIcon from '../../static/images/plus-circle-01.svg';
 import DeleteIcon from '../../static/images/trash-bin-01.svg';
@@ -355,8 +356,8 @@ export const SettingsFormComponent: React.FC<IProps> = ({ initial, onSubmit, dis
 const Settings: React.FC = () => {
 	const { errorNotification, successNotification } = useNotification();
 	const { save, isSaveFailed, saveError, isSaved, isSaving, requestId } = useSettings();
+	const { refetch } = usePaymentAccountsList();
 	const initial = useMemo(() => getInitialFormValues(), []);
-	const rerenderKey = isSaved ? '' : requestId; // resets form
 
 	const handleSettingsFormSubmit = useCallback(
 		async (values: SettingsFormValues) => {
@@ -370,12 +371,13 @@ const Settings: React.FC = () => {
 
 	useEffect(() => {
 		if (isSaveFailed) {
-			errorNotification(getErrorMessage(saveError));
+			errorNotification(getErrorMessage(saveError).message);
 		}
 	}, [isSaveFailed, saveError]);
 
 	useEffect(() => {
 		if (isSaved) {
+			refetch();
 			successNotification();
 		}
 	}, [isSaved]);
@@ -388,7 +390,7 @@ const Settings: React.FC = () => {
 				</Box>
 			}
 		>
-			<SettingsFormComponent key={rerenderKey} initial={initial} onSubmit={handleSettingsFormSubmit} disabled={isSaving} loading={isSaving} />
+			<SettingsFormComponent key={requestId} initial={initial} onSubmit={handleSettingsFormSubmit} disabled={isSaving} loading={isSaving} />
 		</Suspense>
 	);
 };

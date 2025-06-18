@@ -18,7 +18,6 @@ type StageOption = {
 };
 export interface IUserSettingsContext {
 	userSettings?: IUserSettings;
-	dealStatus: string;
 	funnels: FunnelOption[];
 	getStagesByFunnel: (funnel: FunnelOption) => StageOption[];
 	getFunnelById: (id: FunnelOption['id']) => FunnelOption;

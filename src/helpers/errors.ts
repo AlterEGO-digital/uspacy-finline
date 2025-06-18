@@ -1,12 +1,22 @@
 import { isAxiosError } from 'axios';
 
+import { isObject, isString } from './typeGuards';
+
 export const getErrorMessage = (err: unknown) => {
-	if (err instanceof Error) {
-		return err.message ?? '';
-	}
-	if (isAxiosError(err)) {
-		return err.response.data?.message || err.response.data;
+	if (isString(err)) {
+		return { message: err };
 	}
 
-	return 'Something went wrong';
+	if (isAxiosError(err)) {
+		return { message: err.response.data?.message || err.response?.data || 'Something went wrong' };
+	}
+	if (err instanceof Error) {
+		return { message: err.message ?? '' };
+	}
+
+	if (isObject(err) && 'message' in err) {
+		return { message: err.message as string };
+	}
+
+	return { message: 'Something went wrong' };
 };
