@@ -1,5 +1,6 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 
+import { getErrorMessage } from '../../../helpers/errors';
 import { IPaymentAccount } from '../../../models/payment';
 import { deletePaymentAccount, fetchPaymentAccounts, generatePaymentLink } from './async-thunks';
 
@@ -52,7 +53,7 @@ const paymentSlice = createSlice({
 		});
 		builder.addCase(fetchPaymentAccounts.rejected, (state, action) => {
 			state.isAccountsLoading = false;
-			state.isAccountsError = (action.payload as string) || 'Unknown error';
+			state.isAccountsError = getErrorMessage(action.payload).message;
 		});
 
 		builder.addCase(deletePaymentAccount.pending, (state) => {
@@ -67,7 +68,7 @@ const paymentSlice = createSlice({
 		});
 		builder.addCase(deletePaymentAccount.rejected, (state, action) => {
 			state.isDeleting = false;
-			state.isDeleteError = (action.payload as string) || 'Unknown error';
+			state.isDeleteError = getErrorMessage(action.payload).message;
 		});
 
 		builder.addCase(generatePaymentLink.pending, (state) => {
@@ -81,7 +82,7 @@ const paymentSlice = createSlice({
 		});
 		builder.addCase(generatePaymentLink.rejected, (state, action) => {
 			state.isGenerating = false;
-			state.isGenerateError = (action.payload as string) || 'Unknown error';
+			state.isGenerateError = getErrorMessage(action.payload).message;
 		});
 	},
 });

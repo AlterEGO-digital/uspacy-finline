@@ -1,5 +1,6 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 
+import { getErrorMessage } from '../../../helpers/errors';
 import { IDealStatus } from '../../../models/settings';
 import { fetchDealStatus, saveDealStatus, saveSettings } from './async-thunks';
 
@@ -39,7 +40,7 @@ const settingsSlice = createSlice({
 			state.dealError = null;
 		});
 		builder.addCase(fetchDealStatus.rejected, (state, action) => {
-			state.dealError = (action.payload as { message: string })?.message || 'Unknown error';
+			state.dealError = getErrorMessage(action.payload).message;
 		});
 
 		builder.addCase(saveSettings.fulfilled, (state) => {
@@ -52,7 +53,7 @@ const settingsSlice = createSlice({
 			state.isSavingSettings = false;
 			state.isSettingsSaved = false;
 			state.settingsRequestId = performance.now();
-			state.settingsError = (action.payload as { message: string })?.message || 'Unknown error';
+			state.settingsError = getErrorMessage(action.payload).message;
 		});
 
 		builder.addCase(saveDealStatus.fulfilled, (state, action: PayloadAction<IDealStatus>) => {
@@ -64,7 +65,7 @@ const settingsSlice = createSlice({
 		builder.addCase(saveDealStatus.rejected, (state, action) => {
 			state.isSavingDealStatus = false;
 			state.isDealStatusSaved = false;
-			state.dealError = (action.payload as { message: string })?.message || 'Unknown error';
+			state.dealError = getErrorMessage(action.payload).message;
 		});
 		builder.addCase(saveDealStatus.pending, (state) => {
 			state.isSavingDealStatus = true;
