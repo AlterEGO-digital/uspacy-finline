@@ -7,7 +7,7 @@ export const getInitialPaymentFormState = (deal: IDeal, currencies: PaymentCurre
 	const [contact] = deal?.contacts || [];
 	const [fallbackEmail] = contact?.email ?? [];
 
-	const email = contact?.email?.find((emailAddress) => !!emailAddress.main) || fallbackEmail;
+	const email = Array.isArray(contact?.email) ? contact?.email?.find((emailAddress) => !!emailAddress.main) : fallbackEmail;
 	const currency = isDev || isStage ? PaymentCurrencyEnum.XTS : currencies.find((c) => c === deal?.amount?.currency) || PaymentCurrencyEnum.UAH;
 	const amount = deal?.amount?.value || '0.00';
 
