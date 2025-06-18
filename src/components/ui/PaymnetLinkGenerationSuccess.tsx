@@ -13,7 +13,7 @@ export const PaymnetLinkGenerationSuccess: React.FC<{ onClick: VoidFunction }> =
 	};
 
 	return (
-		<Grid container spacing={4}>
+		<Grid container spacing={4} sx={{ width: '536px' }}>
 			<Grid item xs={12}>
 				<Stack sx={{ height: '400px', gap: 3, pt: 2, alignItems: 'center', justifyContent: 'center' }}>
 					<Typography component="h2" fontSize="2rem" textAlign="center" fontWeight="600" color="success.main">

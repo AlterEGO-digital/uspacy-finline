@@ -3,7 +3,7 @@ import React from 'react';
 
 export const PaymentFormSkeleton = () => {
 	return (
-		<Grid container spacing={4}>
+		<Grid container spacing={4} sx={{ width: '536px' }}>
 			<Grid item xs={12}>
 				<Stack height="100%" sx={{ pt: 1 }}>
 					<Grid container spacing={1}>
