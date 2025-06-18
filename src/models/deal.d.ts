@@ -6,12 +6,20 @@ export interface IDealEmail {
 	value: string;
 }
 
+export interface IContactPhone {
+	id: string;
+	type: string;
+	value: string;
+	main: boolean;
+	sort: string;
+}
+
 export interface IDealContact {
 	id: number;
 	owner: number;
-	phone: string;
+	phone: IContactPhone[] | string;
 	title: string;
-	email: IDealEmail[];
+	email: IDealEmail[] | string;
 }
 
 export interface IDealAmount {

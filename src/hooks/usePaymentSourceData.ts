@@ -22,12 +22,18 @@ export const usePaymentSourceData = () => {
 				.filter((email) => !!email?.label) ?? []
 		);
 	}, [deal]);
-	const phones = useMemo(
-		() =>
-			deal?.contacts?.map((contact) => ({ id: contact.phone, label: contact.phone, owner: contact.title })).filter((phone) => !!phone.label) ??
-			[],
-		[deal],
-	);
+	const phones = useMemo(() => {
+		return (
+			deal?.contacts
+				?.map((contact) => {
+					if (!Array.isArray(contact.phone)) return [];
+
+					return contact.phone.map((phone) => ({ id: phone?.value ?? '', label: phone?.value ?? '', owner: contact?.title ?? '' }));
+				})
+				.flat()
+				.filter((phone) => !!phone.label) ?? []
+		);
+	}, [deal]);
 
 	return {
 		accounts: data,
