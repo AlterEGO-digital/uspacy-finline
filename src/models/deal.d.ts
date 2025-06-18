@@ -30,5 +30,5 @@ export interface IDealAmount {
 export interface IDeal {
 	contacts: IDealContact[];
 	amount: IDealAmount;
-	id: string;
+	id: number;
 }
