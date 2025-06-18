@@ -1,24 +1,24 @@
 import React, { useEffect } from 'react';
-import { useDispatch } from 'react-redux';
 
 import { AppProps } from '../../components/App/types';
+import { useDeal } from '../../hooks/useDeal';
 import { IDeal } from '../../models/deal';
-import { appActions } from '../../store/reducers/app/slice';
 
 export const AppProvider: React.FC<{ deal: AppProps } & React.PropsWithChildren> = ({ children, deal }) => {
-	const dispatch = useDispatch();
+	const { hydrateDeal, clearDeal } = useDeal();
 
 	useEffect(() => {
 		if (deal) {
-			dispatch(appActions.hydrateDeal({ deal: deal as IDeal }));
+			hydrateDeal(deal as IDeal);
 		}
 	}, [deal]);
 
-	useEffect(() => {
-		return () => {
-			dispatch(appActions.clearDeal());
-		};
-	}, []);
+	useEffect(
+		() => () => {
+			clearDeal();
+		},
+		[],
+	);
 
 	return <>{children}</>;
 };

@@ -1,11 +1,11 @@
 import { combineReducers, configureStore } from '@reduxjs/toolkit';
 
-import { appSlice } from './reducers/app/slice';
+import { appReducer } from './reducers/app';
 import { paymentApi } from './reducers/payment/api-slice';
 import { settingsApi } from './reducers/settings/api-slice';
 
 const rootReducer = combineReducers({
-	app: appSlice.reducer,
+	app: appReducer,
 	[settingsApi.reducerPath]: settingsApi.reducer,
 	[paymentApi.reducerPath]: paymentApi.reducer,
 });
