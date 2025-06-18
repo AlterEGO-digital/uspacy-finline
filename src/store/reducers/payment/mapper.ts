@@ -3,9 +3,9 @@ import { GeneratePaymentFormValues } from '../../../components/PaymentForm/types
 import { isString } from '../../../helpers/typeGuards';
 import { IGeneratePaymentLinkDto, IPaymentAccount, IRawPaymentAccount } from '../../../models/payment';
 
-export const adaptToPaymentLinkDto = (values: GeneratePaymentFormValues, id: string): IGeneratePaymentLinkDto => {
+export const adaptToPaymentLinkDto = (values: GeneratePaymentFormValues, id: number): IGeneratePaymentLinkDto => {
 	return {
-		deal_id: id,
+		deal_id: String(id),
 		amount: isTestCurrency(values.currency) ? VALID_TEST_PAYMENT_AMOUNT : Number(values.amount),
 		currency: values.currency,
 		description: values.description,
