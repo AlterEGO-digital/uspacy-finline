@@ -13,9 +13,11 @@ export const usePaymentSourceData = () => {
 	const emails = useMemo(
 		() =>
 			deal?.contacts
-				?.map((contact) => contact.email.map((email) => ({ id: email.value, label: email.value, owner: contact.title })))
+				?.map((contact) =>
+					contact.email?.map((email) => ({ id: email?.value ?? '', label: email?.value ?? '', owner: contact?.title ?? '' })),
+				)
 				.flat()
-				.filter((email) => !!email.label) ?? [],
+				.filter((email) => !!email?.label) ?? [],
 		[deal],
 	);
 	const phones = useMemo(
