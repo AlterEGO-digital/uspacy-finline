@@ -1,11 +1,11 @@
 import { FormControl, MenuItem } from '@mui/material';
-import React, { useEffect, useRef } from 'react';
+import React, { useEffect } from 'react';
 import { Controller, useFormContext } from 'react-hook-form';
 import { useTranslation } from 'react-i18next';
 
 import { useUserSettingsContext } from '../../context/UserSettings';
 import { FunnelOption } from '../../context/UserSettings/types';
-import { useSettings } from '../../hooks/useSettings';
+import { useDealStatus } from '../../hooks/useDealStatus';
 import { TextInput, TextInputLabel } from '../ui/Form';
 
 type Props = {
@@ -31,6 +31,7 @@ export const FunnelField = ({ disabled }: Props) => {
 
 			setValue('funnel', defaultFunnel);
 			setValue('stage', defaultStage);
+			return;
 		}
 	}, [funnels]);
 
@@ -93,20 +94,18 @@ export const StageField = ({ disabled }: Props) => {
 	const { getStagesByFunnel, getStageById, getFunnelStagePairByStage, funnels, isLoading } = useUserSettingsContext();
 	const { formState, setValue, watch } = useFormContext();
 	const { t } = useTranslation('settings');
-	const { dealPaymentStatus, isLoading: isLoadingDealPaymentStatus } = useSettings();
-	const isHydrated = useRef(false);
+	const { status, isLoading: isLoadingDealPaymentStatus } = useDealStatus();
 
 	const funnel = watch('funnel') as FunnelOption;
 
 	useEffect(() => {
-		if (dealPaymentStatus && funnels?.length && !isHydrated.current) {
-			isHydrated.current = true;
-			const pair = getFunnelStagePairByStage(dealPaymentStatus);
+		if (status && funnels?.length) {
+			const pair = getFunnelStagePairByStage(status);
 
 			setValue('stage', pair.stage);
 			setValue('funnel', pair.funnel);
 		}
-	}, [dealPaymentStatus, funnels, getFunnelStagePairByStage]);
+	}, [status, funnels, getFunnelStagePairByStage]);
 
 	const isDisabled = disabled || isLoadingDealPaymentStatus || isLoading;
 

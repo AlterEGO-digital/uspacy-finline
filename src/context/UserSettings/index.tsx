@@ -88,7 +88,6 @@ const Provider: React.FC<IProps> = ({ children, userSettings }) => {
 
 	const ctx = useMemo(() => {
 		return {
-			dealStatus: '',
 			userSettings,
 			funnels: funnelsState.funnelsOptions,
 			getStagesByFunnel,

@@ -1,22 +1,31 @@
-import { useCallback } from 'react';
+import { useCallback, useState } from 'react';
 
-import { useDeletePaymentAccountMutation } from '../store/reducers/payment/api-slice';
+import { useAppDispatch, useAppSelector } from '../store';
+import { deletePaymentAccount as deletePaymentAccountAction } from '../store/reducers/payment/async-thunks';
+import { selectDeleteError, selectIsDeleting } from '../store/reducers/payment/selectors';
 
 export const usePaymentAccount = () => {
-	const [deleteAsync, deleteRequest] = useDeletePaymentAccountMutation();
+	const [isLocalLoading, setIsLocalLoading] = useState(false);
 
-	const deletePaymentAccount = useCallback(
-		async (id: string) => {
-			await deleteAsync(id);
-		},
-		[deleteAsync],
-	);
+	const dispatch = useAppDispatch();
+	const isLoading = useAppSelector(selectIsDeleting);
+	const error = useAppSelector(selectDeleteError);
+	const isError = !!error;
+
+	const deletePaymentAccount = useCallback(async (candidateId: string) => {
+		try {
+			setIsLocalLoading(true);
+			await dispatch(deletePaymentAccountAction(candidateId));
+		} finally {
+			setIsLocalLoading(false);
+		}
+	}, []);
 
 	return {
 		deletePaymentAccount,
-		isLoading: deleteRequest.isLoading,
-		isError: deleteRequest.isError,
-		isSuccess: deleteRequest.isSuccess,
-		error: deleteRequest.error,
+		isLoading,
+		isError,
+		error,
+		isLocalLoading,
 	};
 };

@@ -1,41 +1,14 @@
 import { useMemo } from 'react';
 
-import { useGetCurrencyListQuery, useGetPaymentAccountsListQuery, useGetRecieptDeliveryListQuery } from '../store/reducers/payment/api-slice';
+import { getCurrencyList, getRecieptDeliveryList } from '../store/reducers/payment/local-data';
 import { useDeal } from './useDeal';
-
-// TODO: delete once BE is ready. Now it is mok data for testing
-const a = [
-	{ id: '1', label: 'Fop' },
-	{ id: '2', label: 'TOB' },
-];
+import { usePaymentAccountsList } from './usePaymentAccountsList';
 
 export const usePaymentSourceData = () => {
-	const accauntPayment = useGetPaymentAccountsListQuery();
-	const currencyPayment = useGetCurrencyListQuery();
-	const recieptDelivery = useGetRecieptDeliveryListQuery();
+	const { data, isLoading, isError, error, refetch } = usePaymentAccountsList();
 	const { deal } = useDeal();
-
-	const isLoading =
-		accauntPayment.isLoading ||
-		accauntPayment.isFetching ||
-		currencyPayment.isLoading ||
-		currencyPayment.isFetching ||
-		recieptDelivery.isLoading ||
-		recieptDelivery.isFetching;
-	const isError =
-		accauntPayment.isError ||
-		accauntPayment.isError ||
-		currencyPayment.isError ||
-		currencyPayment.isError ||
-		recieptDelivery.isError ||
-		recieptDelivery.isError;
-	const error =
-		accauntPayment.error ||
-		accauntPayment.error ||
-		currencyPayment.error ||
-		currencyPayment.error ||
-		recieptDelivery.error ||
-		recieptDelivery.error;
+	const currencies = getCurrencyList();
+	const reciepts = getRecieptDeliveryList();
 
 	const emails = useMemo(
 		() =>
@@ -53,13 +26,14 @@ export const usePaymentSourceData = () => {
 	);
 
 	return {
-		accounts: accauntPayment.data ?? a,
-		currencies: currencyPayment.data ?? [],
-		recieptDeliveryTransports: recieptDelivery.data ?? [],
+		accounts: data,
+		currencies,
+		recieptDeliveryTransports: reciepts,
 		emails,
 		phones,
 		isLoading,
 		isError,
 		error,
+		refetchAccounts: refetch,
 	};
 };

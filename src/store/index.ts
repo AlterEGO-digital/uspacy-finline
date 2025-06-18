@@ -1,22 +1,26 @@
 import { combineReducers, configureStore } from '@reduxjs/toolkit';
+import { TypedUseSelectorHook, useDispatch, useSelector } from 'react-redux';
 
 import { appReducer } from './reducers/app';
-import { paymentApi } from './reducers/payment/api-slice';
-import { settingsApi } from './reducers/settings/api-slice';
+import paymentReducer from './reducers/payment';
+import settingsReducer from './reducers/settings';
 
 const rootReducer = combineReducers({
 	app: appReducer,
-	[settingsApi.reducerPath]: settingsApi.reducer,
-	[paymentApi.reducerPath]: paymentApi.reducer,
+	settings: settingsReducer,
+	payments: paymentReducer,
 });
 
 export const setupStore = () => {
 	return configureStore({
 		reducer: rootReducer,
-		middleware: (getDefaultMiddleware) => getDefaultMiddleware().concat([paymentApi.middleware, settingsApi.middleware]),
+		middleware: (getDefaultMiddleware) => getDefaultMiddleware(),
 	});
 };
 
 export type RootState = ReturnType<typeof rootReducer>;
 export type AppStore = ReturnType<typeof setupStore>;
 export type AppDispatch = AppStore['dispatch'];
+
+export const useAppDispatch = () => useDispatch<AppDispatch>();
+export const useAppSelector: TypedUseSelectorHook<RootState> = useSelector;

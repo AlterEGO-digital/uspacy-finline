@@ -1,31 +1,49 @@
-import { useCallback } from 'react';
+import { useCallback, useEffect } from 'react';
 
 import { IDealStatusDto } from '../models/settings';
-import { useGetDealStatusQuery, useSaveDealMutation } from '../store/reducers/settings/api-slice';
+import { useAppDispatch, useAppSelector } from '../store';
+import { fetchDealStatus, saveDealStatus as saveDealStatusAction } from '../store/reducers/settings/async-thunks';
+import {
+	selectDealStatus,
+	selectDealStatusError,
+	selectIsDealStatusSaved,
+	selectIsLoading,
+	selectIsSavingDealStatus,
+} from '../store/reducers/settings/selectors';
 
 export const useDealStatus = () => {
-	const { data, isError, isFetching, isLoading, isSuccess, error, refetch } = useGetDealStatusQuery();
-	const [saveDealStatusAsync, saveDealStatusRequest] = useSaveDealMutation();
+	const dealStatus = useAppSelector(selectDealStatus);
+	const dispatch = useAppDispatch();
+	const isLoading = useAppSelector(selectIsLoading);
+	const isSaving = useAppSelector(selectIsSavingDealStatus);
+	const dealStatusError = useAppSelector(selectDealStatusError);
+	const isSaved = useAppSelector(selectIsDealStatusSaved);
+	const isError = !!dealStatusError;
 
-	const saveDealStatus = useCallback(
-		async (dto: IDealStatusDto) => {
-			return await saveDealStatusAsync(dto);
-		},
-		[saveDealStatusAsync],
-	);
+	useEffect(() => {
+		if (!dealStatus && !isLoading) {
+			dispatch(fetchDealStatus());
+		}
+	}, [isLoading, dealStatus]);
+
+	const saveDealStatus = useCallback(async (dto: IDealStatusDto) => {
+		return dispatch(saveDealStatusAction(dto));
+	}, []);
+
+	const refetch = useCallback(() => {
+		dispatch(fetchDealStatus());
+	}, []);
 
 	return {
-		status: String(data?.status ?? ''),
+		status: dealStatus,
 		isError,
-		isFetching,
 		isLoading,
-		isSuccess,
-		error,
+		error: dealStatusError,
 		refetch,
 		saveDealStatus,
-		isSaving: saveDealStatusRequest.isLoading,
-		isSaveError: saveDealStatusRequest.isError,
-		isSaved: saveDealStatusRequest.isSuccess,
-		saveError: saveDealStatusRequest.error,
+		isSaving,
+		isSaved,
+		isSaveError: isError,
+		saveError: dealStatusError,
 	};
 };

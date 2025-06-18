@@ -1,45 +1,50 @@
-import { useState } from 'react';
+import { useCallback, useState } from 'react';
 
 import { IDealStatusDto, ISettingsDto } from '../models/settings';
-import { useGetPaymentAccountsListQuery } from '../store/reducers/payment/api-slice';
-import { useSaveSettingsMutation } from '../store/reducers/settings/api-slice';
+import { useAppDispatch, useAppSelector } from '../store';
+import { saveDealStatus as saveDealStatusAction, saveSettings as saveSettingsAction } from '../store/reducers/settings/async-thunks';
+import { selectIsSavingSettings, selectIsSettingsSaved, selectSettingsError, selectSettingsRequestId } from '../store/reducers/settings/selectors';
 import { useDealStatus } from './useDealStatus';
+import { usePaymentAccountsList } from './usePaymentAccountsList';
 
 export const useSettings = () => {
-	const [isSavingSettings, setIsSavingSettings] = useState(false);
+	const [isLongProcessing, setIsLongProcessing] = useState(false);
+	const dispatch = useAppDispatch();
+	const isSaving = useAppSelector(selectIsSavingSettings);
+	const settingsError = useAppSelector(selectSettingsError);
+	const isSettingsSaved = useAppSelector(selectIsSettingsSaved);
+	const requestId = useAppSelector(selectSettingsRequestId);
+	const isSavingError = !!settingsError;
 
-	const accounts = useGetPaymentAccountsListQuery();
 	const dealStatus = useDealStatus();
-	const [saveAsync, request] = useSaveSettingsMutation();
-	const { saveDealStatus, ...dealStatusRequest } = useDealStatus();
+	const { data: accounts, ...accountsRequest } = usePaymentAccountsList();
 
-	const save = async (settingsDto: ISettingsDto, statusDto: IDealStatusDto) => {
-		try {
-			setIsSavingSettings(true);
-			await saveAsync(settingsDto);
-			accounts.refetch();
-			await saveDealStatus(statusDto);
-		} finally {
-			setIsSavingSettings(false);
-		}
-	};
+	const save = useCallback(
+		async (settingsDto: ISettingsDto, statusDto: IDealStatusDto) => {
+			setIsLongProcessing(true);
 
-	const isLoading = accounts.isLoading || dealStatus.isLoading;
-	const isError = accounts.isError;
-	const error = accounts.error;
+			try {
+				await dispatch(saveSettingsAction(settingsDto)).unwrap();
+				await dispatch(saveDealStatusAction(statusDto)).unwrap();
+			} finally {
+				setIsLongProcessing(false);
+			}
+		},
+		[dispatch],
+	);
 
 	return {
-		accounts: accounts?.data,
+		accounts,
 		dealPaymentStatus: dealStatus.status,
 		save,
-		isError,
-		isLoading,
-		error,
-		isSaving: isSavingSettings,
-		isSaved: request.isSuccess && dealStatusRequest.isSaved,
-		isSaveFailed: request.isError || dealStatusRequest.isSaveError,
-		saveError: request.error || dealStatusRequest.saveError,
-		refetch: accounts.refetch,
-		requestId: request.requestId,
+		isError: accountsRequest.isError,
+		isLoading: accountsRequest.isLoading,
+		error: accountsRequest.error,
+		isSaving: isLongProcessing || isSaving,
+		isSaved: isSettingsSaved,
+		isSaveFailed: isSavingError,
+		saveError: settingsError,
+		refetch: accountsRequest.refetch,
+		requestId,
 	};
 };

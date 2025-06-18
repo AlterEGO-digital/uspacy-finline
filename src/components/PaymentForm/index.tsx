@@ -300,7 +300,7 @@ const PaymentForm: React.FC = () => {
 
 	useEffect(() => {
 		if (error) {
-			errorNotification(getErrorMessage(error));
+			errorNotification(getErrorMessage(error).message);
 
 			timeoutId.current = setTimeout(() => {
 				reset();
@@ -337,19 +337,27 @@ const PaymentForm: React.FC = () => {
 		return <PaymentAccountsNotFoundView />;
 	}
 
+	const isLoaded = !isLoadingSourceData && !!accounts?.length;
+
 	return (
 		<Suspense fallback={<PaymentFormSkeleton />}>
-			{isIdleView && (
-				<Stack gap={2}>
-					<PaymentFormComponent onSubmit={handleFormSubmit} initial={initial} disabled={isLoading} loading={isLoading} />
-					{!!error && (
-						<FormHelperText error sx={{ fontSize: '1rem' }}>
-							{getErrorMessage(error)}
-						</FormHelperText>
-					)}
-				</Stack>
-			)}
-			{isSuccessView && <PaymnetLinkGenerationSuccess onClick={onGoBack} />}
+			<>
+				{isLoaded && (
+					<>
+						{isIdleView && (
+							<Stack gap={2}>
+								<PaymentFormComponent onSubmit={handleFormSubmit} initial={initial} disabled={isLoading} loading={isLoading} />
+								{!!error && (
+									<FormHelperText error sx={{ fontSize: '1rem' }}>
+										{getErrorMessage(error).message}
+									</FormHelperText>
+								)}
+							</Stack>
+						)}
+						{isSuccessView && <PaymnetLinkGenerationSuccess onClick={onGoBack} />}
+					</>
+				)}
+			</>
 		</Suspense>
 	);
 };

@@ -1,12 +1,25 @@
+import { useCallback } from 'react';
+
 import { IGeneratePaymentLinkDto } from '../models/payment';
-import { useGeneratePaymentLinkMutation } from '../store/reducers/payment/api-slice';
+import { useAppDispatch, useAppSelector } from '../store';
+import { paymentActions } from '../store/reducers/payment';
+import { generatePaymentLink as generatePaymentLinkAction } from '../store/reducers/payment/async-thunks';
+import { selectGenerateError, selectIsGenerating, selectIsGeneratingSuccess } from '../store/reducers/payment/selectors';
 
 export const usePaymentLink = () => {
-	const [generateLinkAsync, { data, isLoading, error, isError, isSuccess, reset }] = useGeneratePaymentLinkMutation();
+	const dispatch = useAppDispatch();
+	const isSuccess = useAppSelector(selectIsGeneratingSuccess);
+	const isLoading = useAppSelector(selectIsGenerating);
+	const error = useAppSelector(selectGenerateError);
+	const isError = !!error;
 
 	const generateLink = async (dto: IGeneratePaymentLinkDto) => {
-		return await generateLinkAsync(dto);
+		return dispatch(generatePaymentLinkAction(dto));
 	};
+
+	const reset = useCallback(() => {
+		dispatch(paymentActions.resetGeneratingRequest());
+	}, []);
 
 	return {
 		generateLink,
@@ -14,7 +27,6 @@ export const usePaymentLink = () => {
 		error,
 		isError,
 		isSuccess,
-		data,
 		reset,
 	};
 };
