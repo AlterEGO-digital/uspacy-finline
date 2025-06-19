@@ -3,26 +3,22 @@ import React from 'react';
 
 export const PaymentFormSkeleton = () => {
 	return (
-		<Grid container spacing={4} sx={{ width: '568px', mx: 'auto' }}>
-			<Grid item xs={12}>
-				<Stack height="100%" sx={{ pt: 1 }}>
-					<Grid container spacing={1}>
-						{[12, 8, 4, 6, 6, 8, 4].map((xs, index) => (
-							<Grid item xs={xs} key={index}>
-								<Stack spacing={0.5}>
-									<Skeleton variant="text" animation="wave" sx={{ height: 16, width: '30%' }} />
+		<Stack height="100%" sx={{ pt: 1, width: '568px', mx: 'auto' }}>
+			<Grid container spacing={1}>
+				{[12, 8, 4, 6, 6, 8, 4].map((xs, index) => (
+					<Grid item xs={xs} key={index}>
+						<Stack spacing={0.5}>
+							<Skeleton variant="text" animation="wave" sx={{ height: 16, width: '30%' }} />
 
-									<Skeleton variant="rounded" animation="wave" sx={{ height: 56, width: '100%', borderRadius: 1 }} />
-								</Stack>
-							</Grid>
-						))}
+							<Skeleton variant="rounded" animation="wave" sx={{ height: 56, width: '100%', borderRadius: 1 }} />
+						</Stack>
 					</Grid>
-
-					<Stack pt={3} width="100%">
-						<Skeleton variant="rounded" animation="wave" sx={{ height: 40, width: '100%', borderRadius: 1 }} />
-					</Stack>
-				</Stack>
+				))}
 			</Grid>
-		</Grid>
+
+			<Stack pt={3} width="100%">
+				<Skeleton variant="rounded" animation="wave" sx={{ height: 40, width: '100%', borderRadius: 1 }} />
+			</Stack>
+		</Stack>
 	);
 };
