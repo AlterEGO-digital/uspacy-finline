@@ -2,8 +2,8 @@
   "views": {
     "success": {
       "title": "Sukces!",
-      "reason": "Link został pomyślnie wygenerowany.",
-      "description": "Znajdziesz go w notatkach dotyczących transakcji.",
+      "reason": "Link został wygenerowany.",
+      "description": "możesz go znaleźć w notatkach do umowy.",
       "back": "Wstecz"
     },
     "empty": {

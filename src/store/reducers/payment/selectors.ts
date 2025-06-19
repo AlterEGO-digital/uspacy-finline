@@ -13,3 +13,5 @@ export const selectAccountsError = (state: RootState) => state.payments.isAccoun
 export const selectDeleteError = (state: RootState) => state.payments.isDeleteError;
 export const selectGenerateError = (state: RootState) => state.payments.isGenerateError;
 export const selectAccountsUninitialized = (state: RootState) => state.payments.isUninitialized;
+
+export const selectPaymentLink = (state: RootState) => state.payments.paymentLink;

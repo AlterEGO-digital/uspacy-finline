@@ -1,16 +1,20 @@
 {
   "common": {
     "errors": {
-      "unknown": "Algo deu errado."
+      "unknown": "Algo deu errado.",
+      "copyToClipboard": "Não foi possível copiar"
     },
     "success": "Sucesso!",
+    "copiedToClipboard": "Copiado",
+    "or": "ou",
     "buttons": {
       "confirmDelete": "Sim, excluir",
-      "cancel": "Cancelar"
+      "cancel": "Cancelar",
+      "copy": "Copiar"
     },
     "alerts": {
-      "conformDeleteItemTitle": "Tem certeza de que deseja excluir esta entidade?",
-      "conformDeleteItemText": "Esta ação não pode ser desfeita, pois ela será removida do servidor."
+      "conformDeleteItemTitle": "Tem certeza de que deseja excluir este item?",
+      "conformDeleteItemText": "Essa ação não pode ser desfeita, pois será excluída do servidor."
     }
   }
 }

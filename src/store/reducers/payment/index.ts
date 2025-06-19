@@ -14,6 +14,7 @@ interface PaymentState {
 	isGenerating: boolean;
 	isDeleted: boolean;
 	isGenerated: boolean;
+	paymentLink: NullOr<string>;
 
 	isUninitialized: boolean;
 }
@@ -29,6 +30,7 @@ const initialState: PaymentState = {
 	isDeleted: false,
 	isGenerated: false,
 	isUninitialized: true,
+	paymentLink: null,
 };
 
 const paymentSlice = createSlice({
@@ -39,6 +41,7 @@ const paymentSlice = createSlice({
 			state.isGenerateError = null;
 			state.isGenerating = false;
 			state.isGenerated = false;
+			state.paymentLink = null;
 		},
 	},
 	extraReducers: (builder) => {
@@ -72,13 +75,16 @@ const paymentSlice = createSlice({
 		});
 
 		builder.addCase(generatePaymentLink.pending, (state) => {
+			state.paymentLink = null;
 			state.isGenerating = true;
 			state.isGenerateError = null;
 			state.isGenerated = false;
 		});
-		builder.addCase(generatePaymentLink.fulfilled, (state) => {
+		builder.addCase(generatePaymentLink.fulfilled, (state, action: PayloadAction<string>) => {
 			state.isGenerating = false;
 			state.isGenerated = true;
+			state.paymentLink = action.payload;
+			state.isGenerateError = null;
 		});
 		builder.addCase(generatePaymentLink.rejected, (state, action) => {
 			state.isGenerating = false;

@@ -4,7 +4,7 @@ import { API_ENDPOINT } from '../../../const';
 import { api } from '../../../helpers/api';
 import { getToken } from '../../../helpers/db';
 import { getErrorMessage } from '../../../helpers/errors';
-import { IGeneratePaymentLinkDto } from '../../../models/payment';
+import { IGeneratePaymentLinkDto, IGeneratePaymentLinkResponse } from '../../../models/payment';
 import { normalizePaymentAccount } from './mapper';
 
 export const fetchPaymentAccounts = createAsyncThunk('payments/fetchPaymentAccounts', async (_, thunkAPI) => {
@@ -39,12 +39,12 @@ export const deletePaymentAccount = createAsyncThunk('payments/deletePaymentAcco
 export const generatePaymentLink = createAsyncThunk('payments/generatePaymentLink', async (dto: IGeneratePaymentLinkDto, thunkAPI) => {
 	try {
 		const token = await getToken();
-		await api.post(API_ENDPOINT.generatePaymentLink(), dto, {
+		const response = await api.post<IGeneratePaymentLinkResponse>(API_ENDPOINT.generatePaymentLink(), dto, {
 			headers: {
 				Authorization: `Bearer ${token}`,
 			},
 		});
-		return;
+		return response.data?.payLink;
 	} catch (error: Anything) {
 		return thunkAPI.rejectWithValue(getErrorMessage(error));
 	}

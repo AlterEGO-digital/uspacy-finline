@@ -30,3 +30,7 @@ export interface IPaymentAccount {
 	label: string;
 	id: string;
 }
+
+export interface IGeneratePaymentLinkResponse {
+	payLink: string;
+}

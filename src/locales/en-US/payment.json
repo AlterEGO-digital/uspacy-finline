@@ -2,8 +2,8 @@
   "views": {
     "success": {
       "title": "Success!",
-      "reason": "Link is generateed.",
-      "description": "You can find it in the deal's notes.",
+      "reason": "The link has been generated.",
+      "description": "you can find it in the notes to the deal.",
       "back": "Back",
       "toast": "Link is sucessfully generateed"
     },
