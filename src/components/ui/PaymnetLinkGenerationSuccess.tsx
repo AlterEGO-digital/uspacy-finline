@@ -38,7 +38,7 @@ export const PaymnetLinkGenerationSuccess: React.FC<{ onClick: VoidFunction; lin
 	};
 
 	return (
-		<Stack sx={{ height: '400px', gap: 3, pt: 2, alignItems: 'center', justifyContent: 'center', width: '568px', mx: 'auto' }}>
+		<Stack sx={{ height: '400px', gap: 3, pt: 2, alignItems: 'center', justifyContent: 'center', width: '536px', mx: 'auto' }}>
 			<Typography component="h2" fontSize="2rem" textAlign="center" fontWeight="600" color="success.main">
 				{t('payment:views.success.title')}
 			</Typography>
