@@ -289,7 +289,11 @@ const PaymentForm: React.FC = () => {
 	const isIdleView = view === 'idle';
 	const isSuccessView = view === 'success';
 
-	const onGoBack = useCallback(() => setView('idle'), []);
+	const onGoBack = useCallback(() => {
+		reset();
+		setView('idle');
+	}, []);
+
 	const handleFormSubmit = useCallback(
 		async (values: GeneratePaymentFormValues) => {
 			const dto = adaptToPaymentLinkDto(values, deal.id);
@@ -317,7 +321,28 @@ const PaymentForm: React.FC = () => {
 	}, [isSuccess]);
 
 	useEffect(() => {
+		const ctrl = new AbortController();
+		const { signal } = ctrl;
+		const backdrop = document.querySelector('.MuiBackdrop-root');
+
+		if (backdrop) {
+			addEventListener(
+				'click',
+				(e) => {
+					if (e.target === backdrop) {
+						setView('idle');
+						reset();
+					}
+				},
+				{ once: true, signal },
+			);
+		}
+
 		return () => {
+			setView('idle');
+			reset();
+			ctrl.abort();
+
 			if (timeoutId.current !== null) {
 				clearTimeout(timeoutId.current);
 				timeoutId.current = null;
