@@ -5,6 +5,8 @@ import { useTranslation } from 'react-i18next';
 import { useNotification } from '../../hooks/useNotification';
 import CopyIcon from '../../static/images/copy.svg';
 import CopyCheckIcon from '../../static/images/copy-check.svg';
+import { useAppDispatch } from '../../store';
+import { paymentActions } from '../../store/reducers/payment';
 import { BrandButton } from './BrandButton';
 
 export const PaymnetLinkGenerationSuccess: React.FC<{ onClick: VoidFunction; link: string }> = ({ onClick, link }) => {
@@ -12,6 +14,7 @@ export const PaymnetLinkGenerationSuccess: React.FC<{ onClick: VoidFunction; lin
 	const [copied, setCopied] = useState(false);
 	const { errorNotification, successNotification } = useNotification();
 	const timeoutRef = useRef<NullOr<NodeJS.Timeout>>(null);
+	const dispatch = useAppDispatch();
 
 	const copyToClipboard = async () => {
 		try {
@@ -26,6 +29,8 @@ export const PaymnetLinkGenerationSuccess: React.FC<{ onClick: VoidFunction; lin
 
 	useEffect(() => {
 		return () => {
+			dispatch(paymentActions.resetGeneratingRequest());
+
 			if (timeoutRef.current) {
 				clearTimeout(timeoutRef.current);
 			}
@@ -33,6 +38,7 @@ export const PaymnetLinkGenerationSuccess: React.FC<{ onClick: VoidFunction; lin
 	}, []);
 
 	const handleClick = (e: React.MouseEvent<HTMLButtonElement>) => {
+		dispatch(paymentActions.resetGeneratingRequest());
 		e.stopPropagation();
 		onClick();
 	};

@@ -289,7 +289,11 @@ const PaymentForm: React.FC = () => {
 	const isIdleView = view === 'idle';
 	const isSuccessView = view === 'success';
 
-	const onGoBack = useCallback(() => setView('idle'), []);
+	const onGoBack = useCallback(() => {
+		reset();
+		setView('idle');
+	}, []);
+
 	const handleFormSubmit = useCallback(
 		async (values: GeneratePaymentFormValues) => {
 			const dto = adaptToPaymentLinkDto(values, deal.id);
@@ -317,7 +321,12 @@ const PaymentForm: React.FC = () => {
 	}, [isSuccess]);
 
 	useEffect(() => {
+		reset(); // reset prev state
+
 		return () => {
+			setView('idle');
+			reset();
+
 			if (timeoutId.current !== null) {
 				clearTimeout(timeoutId.current);
 				timeoutId.current = null;

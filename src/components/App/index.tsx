@@ -30,7 +30,7 @@ const AppWrap: React.FC<IProps & AppProps> = ({ userSettings, contacts, amount, 
 
 	return (
 		<Providers userSettings={userSettings}>
-			<AppProvider deal={deal}>
+			<AppProvider deal={deal} key={deal.id}>
 				<App />
 			</AppProvider>
 		</Providers>
