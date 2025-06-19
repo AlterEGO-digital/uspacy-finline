@@ -321,27 +321,11 @@ const PaymentForm: React.FC = () => {
 	}, [isSuccess]);
 
 	useEffect(() => {
-		const ctrl = new AbortController();
-		const { signal } = ctrl;
-		const backdrop = document.querySelector('.MuiBackdrop-root');
-
-		if (backdrop) {
-			addEventListener(
-				'click',
-				(e) => {
-					if (e.target === backdrop) {
-						setView('idle');
-						reset();
-					}
-				},
-				{ once: true, signal },
-			);
-		}
+		reset(); // reset prev state
 
 		return () => {
 			setView('idle');
 			reset();
-			ctrl.abort();
 
 			if (timeoutId.current !== null) {
 				clearTimeout(timeoutId.current);
