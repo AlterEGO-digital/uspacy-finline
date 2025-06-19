@@ -11,6 +11,8 @@ export const usePaymentSourceData = () => {
 	const reciepts = getRecieptDeliveryList();
 
 	const emails = useMemo(() => {
+		if (!Array.isArray(deal?.contacts)) return [];
+
 		return (
 			deal?.contacts
 				?.map((contact) => {
@@ -23,6 +25,8 @@ export const usePaymentSourceData = () => {
 		);
 	}, [deal]);
 	const phones = useMemo(() => {
+		if (!Array.isArray(deal?.contacts)) return [];
+
 		return (
 			deal?.contacts
 				?.map((contact) => {
