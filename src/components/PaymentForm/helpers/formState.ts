@@ -17,7 +17,7 @@ export const getInitialPaymentFormState = (deal: IDeal, currencies: PaymentCurre
 	}
 
 	const [contact] = deal?.contacts || [];
-	const fallbackEmail = Array.isArray(contact.email) ? contact.email[0]?.value : '';
+	const fallbackEmail = Array.isArray(contact?.email) ? contact.email[0]?.value : '';
 	const fallbackPhone = Array.isArray(contact?.phone) ? contact.phone[0]?.value : '';
 
 	const email = Array.isArray(contact?.email) ? contact?.email?.find((emailAddress) => !!emailAddress?.main)?.value : fallbackEmail;

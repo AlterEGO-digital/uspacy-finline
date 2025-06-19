@@ -1,12 +1,16 @@
 {
   "common": {
     "errors": {
-      "unknown": "Щось пішло не так."
+      "unknown": "Щось пішло не так.",
+      "copyToClipboard": "Не вдалося скопіювати"
     },
     "success": "Успішно!",
+    "copiedToClipboard": "Скопійовано",
+    "or": "або",
     "buttons": {
       "confirmDelete": "Так, видалити",
-      "cancel": "Скасувати"
+      "cancel": "Скасувати",
+      "copy": "Скопіювати"
     },
     "alerts": {
       "conformDeleteItemTitle": "Ви впевнені, що хочете видалити цю сутність?",

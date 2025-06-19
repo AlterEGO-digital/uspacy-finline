@@ -281,7 +281,7 @@ const PaymentForm: React.FC = () => {
 	const timeoutId = useRef<NullOr<NodeJS.Timeout>>(null);
 
 	const { deal } = useDeal();
-	const { generateLink, isLoading, error, isSuccess, reset } = usePaymentLink();
+	const { paymentLink, generateLink, isLoading, error, isSuccess, reset } = usePaymentLink();
 	const { accounts, currencies, isLoading: isLoadingSourceData } = usePaymentSourceData();
 	const { errorNotification, successNotification } = useNotification();
 
@@ -354,7 +354,7 @@ const PaymentForm: React.FC = () => {
 								)}
 							</Stack>
 						)}
-						{isSuccessView && <PaymnetLinkGenerationSuccess onClick={onGoBack} />}
+						{isSuccessView && <PaymnetLinkGenerationSuccess link={paymentLink} onClick={onGoBack} />}
 					</>
 				)}
 			</>

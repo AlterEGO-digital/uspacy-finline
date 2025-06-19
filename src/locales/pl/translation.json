@@ -1,16 +1,20 @@
 {
   "common": {
     "errors": {
-      "unknown": "Coś poszło nie tak."
+      "unknown": "Coś poszło nie tak.",
+      "copyToClipboard": "Nie udało się skopiować"
     },
     "success": "Sukces!",
+    "copiedToClipboard": "Skopiowano",
+    "or": "lub",
     "buttons": {
       "confirmDelete": "Tak, usuń",
-      "cancel": "Anuluj"
+      "cancel": "Anuluj",
+      "copy": "Kopiuj"
     },
     "alerts": {
-      "conformDeleteItemTitle": "Czy na pewno chcesz usunąć tę encję?",
-      "conformDeleteItemText": "Tej operacji nie można cofnąć, ponieważ zostanie usunięta z serwera."
+      "conformDeleteItemTitle": "Czy na pewno chcesz usunąć ten element?",
+      "conformDeleteItemText": "Tej akcji nie można cofnąć, ponieważ zostanie usunięta z serwera."
     }
   }
 }

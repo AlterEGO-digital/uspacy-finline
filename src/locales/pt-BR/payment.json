@@ -2,8 +2,8 @@
   "views": {
     "success": {
       "title": "Sucesso",
-      "reason": "O link foi gerado com sucesso.",
-      "description": "Você pode encontrá-lo nas anotações da negociação.",
+      "reason": "O link foi gerado.",
+      "description": "você pode encontrá-lo nas anotações do acordo.",
       "back": "Voltar"
     },
     "empty": {
