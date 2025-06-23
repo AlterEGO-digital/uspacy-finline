@@ -25,8 +25,12 @@ const App: React.FC = () => {
 	);
 };
 
-const AppWrap: React.FC<IProps & AppProps> = ({ userSettings, contacts, amount, id, title }) => {
+const AppWrap: React.FC<IProps & AppProps> = ({ userSettings, contacts, amount, id, title, ...rest }) => {
 	const deal = useMemo(() => ({ amount, contacts, id }), [amount, contacts, id, title]);
+	// eslint-disable-next-line no-console
+	console.log('rest -->', rest);
+	// eslint-disable-next-line no-console
+	console.log('title -->', title);
 
 	return (
 		<Providers userSettings={userSettings}>

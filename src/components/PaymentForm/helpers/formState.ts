@@ -4,14 +4,21 @@ import { PaymentCurrencyEnum, RecieptDeliveryEnum } from '../../../models/paymen
 import { GeneratePaymentFormValues } from '../types';
 
 export const getInitialPaymentFormState = (deal: IDeal, currencies: PaymentCurrencyEnum[]): GeneratePaymentFormValues => {
+	const description = deal?.title ?? '';
+	const dealCurrency = currencies.find((c) => c === deal?.amount?.currency) || PaymentCurrencyEnum.UAH;
+	const currency = isDev || isStage ? PaymentCurrencyEnum.XTS : dealCurrency;
+	const amount = deal?.amount?.value || '0.00';
+	// eslint-disable-next-line no-console
+	console.log('deal -->', deal);
+
 	if (!Array.isArray(deal?.contacts)) {
 		return {
-			amount: '',
-			currency: isDev || isStage ? PaymentCurrencyEnum.XTS : PaymentCurrencyEnum.UAH,
-			description: '',
 			email: '',
-			paymentAccount: { id: '', label: '' },
 			phone: '',
+			amount,
+			currency,
+			description,
+			paymentAccount: null,
 			receiptDelivery: RecieptDeliveryEnum.None,
 		};
 	}
@@ -22,13 +29,9 @@ export const getInitialPaymentFormState = (deal: IDeal, currencies: PaymentCurre
 
 	const mainEmail = Array.isArray(contact?.email) ? contact?.email?.find((emailAddress) => !!emailAddress?.main) : null;
 	const mainPhone = Array.isArray(contact?.phone) ? contact?.phone?.find((tel) => !!tel?.main) : null;
-	const dealCurrency = currencies.find((c) => c === deal?.amount?.currency) || PaymentCurrencyEnum.UAH;
 
 	const email = mainEmail?.value || fallbackEmail;
 	const phone = mainPhone?.value || fallbackPhone;
-	const currency = isDev || isStage ? PaymentCurrencyEnum.XTS : dealCurrency;
-	const amount = deal?.amount?.value || '0.00';
-	const description = deal?.title ?? '';
 
 	const state: GeneratePaymentFormValues = {
 		amount,
