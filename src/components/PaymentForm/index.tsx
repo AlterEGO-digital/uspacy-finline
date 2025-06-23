@@ -19,6 +19,7 @@ import { PaymnetLinkGenerationSuccess } from '../ui/PaymnetLinkGenerationSuccess
 import { RenderEmailOption, RenderPhoneOption } from '../ui/RenderOption';
 import { getInitialPaymentFormState } from './helpers/formState';
 import { getCurrencyLabel } from './helpers/labels';
+import { getSelectedOptionStyles } from './helpers/styles';
 import { PaymentAmountField } from './PaymentAmountField';
 import { GeneratePaymentFormSchema, GeneratePaymentFormValues } from './types';
 
@@ -32,7 +33,7 @@ interface IProps {
 export const PaymentFormComponent: React.FC<IProps> = ({ initial, onSubmit, disabled, loading = false }) => {
 	const form = useForm<GeneratePaymentFormValues>({ defaultValues: initial, resolver: valibotResolver(GeneratePaymentFormSchema) });
 
-	const { accounts, currencies, recieptDeliveryTransports, emails, phones } = usePaymentSourceData();
+	const { accounts, currencies, emails, phones } = usePaymentSourceData();
 	const { t } = useTranslation(['payment', 'validation']);
 
 	useEffect(() => {
@@ -97,7 +98,7 @@ export const PaymentFormComponent: React.FC<IProps> = ({ initial, onSubmit, disa
 										>
 											{currencies?.map((currency) => {
 												return (
-													<MenuItem key={currency} value={currency}>
+													<MenuItem key={currency} value={currency} sx={getSelectedOptionStyles()}>
 														{getCurrencyLabel(currency)}
 													</MenuItem>
 												);
@@ -182,7 +183,7 @@ export const PaymentFormComponent: React.FC<IProps> = ({ initial, onSubmit, disa
 							}}
 						/>
 					</Grid>
-					<Grid item xs={8}>
+					<Grid item xs={12}>
 						<Controller
 							name="paymentAccount"
 							control={form.control}
@@ -209,38 +210,8 @@ export const PaymentFormComponent: React.FC<IProps> = ({ initial, onSubmit, disa
 										>
 											{accounts?.map((account) => {
 												return (
-													<MenuItem key={account.id} value={account.id}>
+													<MenuItem key={account.id} value={account.id} sx={getSelectedOptionStyles()}>
 														{account.label}
-													</MenuItem>
-												);
-											})}
-										</TextInput>
-									</FormControl>
-								);
-							}}
-						/>
-					</Grid>
-					<Grid item xs={4}>
-						<Controller
-							name="receiptDelivery"
-							control={form.control}
-							render={({ field }) => {
-								const error = getError(field.name);
-								return (
-									<FormControl fullWidth error={!!error} disabled={isDisabled}>
-										<TextInputLabel>{t(getKey('labels.receiptDelivery'))}</TextInputLabel>
-										<TextInput
-											{...field}
-											select
-											error={!!error}
-											helperText={t(error)}
-											placeholder={t(getKey('placeholders.receiptDelivery'))}
-											disabled={isDisabled}
-										>
-											{recieptDeliveryTransports?.map((transport) => {
-												return (
-													<MenuItem key={transport} value={transport}>
-														{t(getKey(`predefined.receiptDelivery.${transport.toLowerCase()}`))}
 													</MenuItem>
 												);
 											})}
