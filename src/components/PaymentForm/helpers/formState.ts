@@ -8,8 +8,6 @@ export const getInitialPaymentFormState = (deal: IDeal, currencies: PaymentCurre
 	const dealCurrency = currencies.find((c) => c === deal?.amount?.currency) || PaymentCurrencyEnum.UAH;
 	const currency = isDev || isStage ? PaymentCurrencyEnum.XTS : dealCurrency;
 	const amount = deal?.amount?.value || '0.00';
-	// eslint-disable-next-line no-console
-	console.log('deal -->', deal);
 
 	if (!Array.isArray(deal?.contacts)) {
 		return {
