@@ -20,18 +20,25 @@ export const getInitialPaymentFormState = (deal: IDeal, currencies: PaymentCurre
 	const fallbackEmail = Array.isArray(contact?.email) ? contact.email[0]?.value : '';
 	const fallbackPhone = Array.isArray(contact?.phone) ? contact.phone[0]?.value : '';
 
-	const email = Array.isArray(contact?.email) ? contact?.email?.find((emailAddress) => !!emailAddress?.main)?.value : fallbackEmail;
-	const phone = Array.isArray(contact?.phone) ? contact?.phone?.find((tel) => !!tel?.main)?.value : fallbackPhone;
-	const currency = isDev || isStage ? PaymentCurrencyEnum.XTS : currencies.find((c) => c === deal?.amount?.currency) || PaymentCurrencyEnum.UAH;
-	const amount = deal?.amount?.value || '0.00';
+	const mainEmail = Array.isArray(contact?.email) ? contact?.email?.find((emailAddress) => !!emailAddress?.main) : null;
+	const mainPhone = Array.isArray(contact?.phone) ? contact?.phone?.find((tel) => !!tel?.main) : null;
+	const dealCurrency = currencies.find((c) => c === deal?.amount?.currency) || PaymentCurrencyEnum.UAH;
 
-	return {
+	const email = mainEmail?.value || fallbackEmail;
+	const phone = mainPhone?.value || fallbackPhone;
+	const currency = isDev || isStage ? PaymentCurrencyEnum.XTS : dealCurrency;
+	const amount = deal?.amount?.value || '0.00';
+	const description = deal?.title ?? '';
+
+	const state: GeneratePaymentFormValues = {
 		amount,
 		email,
 		phone,
 		currency,
-		description: '',
+		description,
 		paymentAccount: null,
 		receiptDelivery: RecieptDeliveryEnum.None,
 	};
+
+	return state;
 };

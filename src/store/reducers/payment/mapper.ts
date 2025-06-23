@@ -1,7 +1,7 @@
 import { isTestCurrency, VALID_TEST_PAYMENT_AMOUNT } from '../../../components/PaymentForm/helpers/currency';
 import { GeneratePaymentFormValues } from '../../../components/PaymentForm/types';
 import { isString } from '../../../helpers/typeGuards';
-import { IGeneratePaymentLinkDto, IPaymentAccount, IRawPaymentAccount } from '../../../models/payment';
+import { IGeneratePaymentLinkDto, IPaymentAccount, IRawPaymentAccount, RecieptDeliveryEnum } from '../../../models/payment';
 
 export const adaptToPaymentLinkDto = (values: GeneratePaymentFormValues, id: number): IGeneratePaymentLinkDto => {
 	return {
@@ -12,7 +12,7 @@ export const adaptToPaymentLinkDto = (values: GeneratePaymentFormValues, id: num
 		customer_email: isString(values.email) ? values.email : values.email.id,
 		customer_phone: isString(values.phone) ? values.phone : values.phone.id,
 		account_id: String(values.paymentAccount.id),
-		f_receipt_delivery: values.receiptDelivery.toLowerCase(),
+		f_receipt_delivery: String(RecieptDeliveryEnum.None).toLowerCase(), // do not select from UI so far
 	};
 };
 

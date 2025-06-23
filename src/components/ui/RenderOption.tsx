@@ -5,7 +5,7 @@ import { ComboboxRenderableOption } from '../PaymentForm/types';
 
 type RenderOptionFn = AutocompleteProps<ComboboxRenderableOption, false, false, true, 'div'>['renderOption'];
 
-const RenderOption: RenderOptionFn = (props, option, { selected }) => {
+const RenderOption: RenderOptionFn = (props, option, { inputValue }) => {
 	return (
 		<Box
 			component="li"
@@ -17,10 +17,10 @@ const RenderOption: RenderOptionFn = (props, option, { selected }) => {
 				alignItems: 'flex-start',
 				width: '100%',
 				p: 1,
-				backgroundColor: selected ? 'background.tags' : '',
+				...(inputValue === option.id && { backgroundColor: 'action.selected', fontWeight: 'bold' }),
 			}}
 		>
-			<Box width="100%">
+			<Box width="100%" sx={{}}>
 				<Box component="div" sx={{ font: 'medium' }}>
 					{option.label}
 				</Box>
