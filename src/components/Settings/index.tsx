@@ -4,7 +4,7 @@ import { StoreProvider as UspacyStore } from '@uspacy/store';
 import React, { useLayoutEffect } from 'react';
 import { useTranslation } from 'react-i18next';
 
-import { setIntegrationToken } from '../../helpers/db';
+import { useIntegrationToken } from '../../hooks/useIntegrationToken';
 import Providers from '../../Providers';
 import SettingsForm from '../SettingsForm';
 import { Logo } from '../ui/Logo';
@@ -31,8 +31,10 @@ const Settings: React.FC = () => {
 };
 
 const SettingsWrap: React.FC<IProps> = ({ userSettings, integrationToken }) => {
+	const { setToken } = useIntegrationToken();
+
 	useLayoutEffect(() => {
-		setIntegrationToken(integrationToken);
+		setToken(integrationToken);
 	}, [integrationToken]);
 
 	return (
