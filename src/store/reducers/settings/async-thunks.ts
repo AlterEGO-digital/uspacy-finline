@@ -2,7 +2,7 @@ import { createAsyncThunk } from '@reduxjs/toolkit';
 
 import { API_ENDPOINT } from '../../../const';
 import { api } from '../../../helpers/api';
-import { getToken } from '../../../helpers/db';
+import { getIntegrationToken } from '../../../helpers/db';
 import { getErrorMessage } from '../../../helpers/errors';
 import { IDealStatus, IDealStatusDto, ISettingsDto } from '../../../models/settings';
 
@@ -10,7 +10,7 @@ export const fetchDealStatus = createAsyncThunk<IDealStatus | null, void, { reje
 	'settings/fetchDealStatus',
 	async (_, thunkAPI) => {
 		try {
-			const token = await getToken();
+			const token = await getIntegrationToken();
 			const response = await api.get<IDealStatus>(API_ENDPOINT.dealStatus(), {
 				headers: {
 					Authorization: `Bearer ${token}`,
@@ -27,7 +27,7 @@ export const saveSettings = createAsyncThunk<void, ISettingsDto, { rejectValue: 
 	'settings/saveSettings',
 	async (dto, thunkAPI) => {
 		try {
-			const token = await getToken();
+			const token = await getIntegrationToken();
 			await api.post(API_ENDPOINT.saveSettings(), dto.accounts, {
 				headers: {
 					Authorization: `Bearer ${token}`,
@@ -43,7 +43,7 @@ export const saveDealStatus = createAsyncThunk<IDealStatus, IDealStatusDto, { re
 	'settings/saveDealStatus',
 	async (dto, thunkAPI) => {
 		try {
-			const token = await getToken();
+			const token = await getIntegrationToken();
 			await api.post(API_ENDPOINT.saveDealStatus(), dto, {
 				headers: {
 					Authorization: `Bearer ${token}`,

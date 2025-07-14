@@ -2,14 +2,14 @@ import { createAsyncThunk } from '@reduxjs/toolkit';
 
 import { API_ENDPOINT } from '../../../const';
 import { api } from '../../../helpers/api';
-import { getToken } from '../../../helpers/db';
+import { getIntegrationToken } from '../../../helpers/db';
 import { getErrorMessage } from '../../../helpers/errors';
 import { IGeneratePaymentLinkDto, IGeneratePaymentLinkResponse } from '../../../models/payment';
 import { normalizePaymentAccount } from './mapper';
 
 export const fetchPaymentAccounts = createAsyncThunk('payments/fetchPaymentAccounts', async (_, thunkAPI) => {
 	try {
-		const token = await getToken();
+		const token = await getIntegrationToken();
 		const res = await api.get(API_ENDPOINT.paymentAccounts(), {
 			headers: {
 				Authorization: `Bearer ${token}`,
@@ -24,7 +24,7 @@ export const fetchPaymentAccounts = createAsyncThunk('payments/fetchPaymentAccou
 
 export const deletePaymentAccount = createAsyncThunk('payments/deletePaymentAccount', async (id: string, thunkAPI) => {
 	try {
-		const token = await getToken();
+		const token = await getIntegrationToken();
 		await api.delete(API_ENDPOINT.deletePaymentAccount(id), {
 			headers: {
 				Authorization: `Bearer ${token}`,
@@ -38,7 +38,7 @@ export const deletePaymentAccount = createAsyncThunk('payments/deletePaymentAcco
 
 export const generatePaymentLink = createAsyncThunk('payments/generatePaymentLink', async (dto: IGeneratePaymentLinkDto, thunkAPI) => {
 	try {
-		const token = await getToken();
+		const token = await getIntegrationToken();
 		const response = await api.post<IGeneratePaymentLinkResponse>(API_ENDPOINT.generatePaymentLink(), dto, {
 			headers: {
 				Authorization: `Bearer ${token}`,
