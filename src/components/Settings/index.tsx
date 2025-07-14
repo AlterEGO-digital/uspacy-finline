@@ -34,7 +34,9 @@ const SettingsWrap: React.FC<IProps> = ({ userSettings, integrationToken }) => {
 	const { setToken } = useIntegrationToken();
 
 	useLayoutEffect(() => {
-		setToken(integrationToken);
+		if (integrationToken) {
+			setToken(integrationToken);
+		}
 	}, [integrationToken]);
 
 	return (
