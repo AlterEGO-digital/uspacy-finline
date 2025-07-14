@@ -1,10 +1,9 @@
 import { Paper, Typography } from '@mui/material';
 import Box from '@mui/material/Box';
 import { StoreProvider as UspacyStore } from '@uspacy/store';
-import React, { useLayoutEffect } from 'react';
+import React from 'react';
 import { useTranslation } from 'react-i18next';
 
-import { useIntegrationToken } from '../../hooks/useIntegrationToken';
 import Providers from '../../Providers';
 import SettingsForm from '../SettingsForm';
 import { Logo } from '../ui/Logo';
@@ -31,17 +30,9 @@ const Settings: React.FC = () => {
 };
 
 const SettingsWrap: React.FC<IProps> = ({ userSettings, integrationToken }) => {
-	const { setToken } = useIntegrationToken();
-
-	useLayoutEffect(() => {
-		if (integrationToken) {
-			setToken(integrationToken);
-		}
-	}, [integrationToken]);
-
 	return (
 		<UspacyStore>
-			<Providers userSettings={userSettings}>
+			<Providers userSettings={userSettings} integrationToken={integrationToken}>
 				<Settings />
 			</Providers>
 		</UspacyStore>
