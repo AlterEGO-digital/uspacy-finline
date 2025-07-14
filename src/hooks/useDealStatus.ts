@@ -10,6 +10,7 @@ import {
 	selectIsLoading,
 	selectIsSavingDealStatus,
 } from '../store/reducers/settings/selectors';
+import { useIntegrationToken } from './useIntegrationToken';
 
 export const useDealStatus = () => {
 	const dealStatus = useAppSelector(selectDealStatus);
@@ -18,13 +19,14 @@ export const useDealStatus = () => {
 	const isSaving = useAppSelector(selectIsSavingDealStatus);
 	const dealStatusError = useAppSelector(selectDealStatusError);
 	const isSaved = useAppSelector(selectIsDealStatusSaved);
+	const { token } = useIntegrationToken();
 	const isError = !!dealStatusError;
 
 	useEffect(() => {
-		if (!dealStatus && !isLoading) {
+		if (!dealStatus && !isLoading && token) {
 			dispatch(fetchDealStatus());
 		}
-	}, [isLoading, dealStatus]);
+	}, [isLoading, dealStatus, token]);
 
 	const saveDealStatus = useCallback(async (dto: IDealStatusDto) => {
 		return dispatch(saveDealStatusAction(dto));
@@ -37,7 +39,7 @@ export const useDealStatus = () => {
 	return {
 		status: dealStatus,
 		isError,
-		isLoading,
+		isLoading: isLoading || !token,
 		error: dealStatusError,
 		refetch,
 		saveDealStatus,
