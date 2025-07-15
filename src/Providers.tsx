@@ -8,11 +8,7 @@ import UserSettingsProvider from './context/UserSettings';
 import { IUserSettings } from './models/userSettings';
 import { theme } from './static/styles/theme';
 
-interface Props {
-	children: ReactNode;
-	userSettings?: IUserSettings;
-}
-const Providers: React.FC<Props> = ({ children, userSettings }) => {
+const Providers: React.FC<{ children: ReactNode; userSettings?: IUserSettings }> = ({ children, userSettings }) => {
 	return (
 		<ThemeProvider theme={theme}>
 			<UserSettingsProvider userSettings={userSettings}>
