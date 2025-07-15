@@ -10,7 +10,3 @@ export const selectDeal = (state: RootState): IDeal | null => {
 
 	return deal;
 };
-
-export const selectIntegrationToken = (state: RootState): string => {
-	return state.app.integrationToken;
-};

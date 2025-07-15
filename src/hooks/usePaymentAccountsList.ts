@@ -8,12 +8,10 @@ import {
 	selectIsAccountsLoading,
 	selectPaymentAccounts,
 } from '../store/reducers/payment/selectors';
-import { useIntegrationToken } from './useIntegrationToken';
 
 export const usePaymentAccountsList = () => {
 	const dispatch = useAppDispatch();
 
-	const { token } = useIntegrationToken();
 	const data = useAppSelector(selectPaymentAccounts);
 	const isLoading = useAppSelector(selectIsAccountsLoading);
 	const error = useAppSelector(selectAccountsError);
@@ -21,10 +19,10 @@ export const usePaymentAccountsList = () => {
 	const isError = !!error;
 
 	useEffect(() => {
-		if (isUninitialized && token) {
+		if (isUninitialized) {
 			dispatch(fetchPaymentAccounts());
 		}
-	}, [isUninitialized, token]);
+	}, [isUninitialized]);
 
 	const refetch = useCallback(() => {
 		dispatch(fetchPaymentAccounts());
@@ -32,7 +30,7 @@ export const usePaymentAccountsList = () => {
 
 	return {
 		data,
-		isLoading: isLoading || !token,
+		isLoading,
 		isError,
 		error,
 		refetch,
