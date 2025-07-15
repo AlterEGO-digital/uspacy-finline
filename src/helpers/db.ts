@@ -27,10 +27,14 @@ export const getToken = async (): Promise<string> => {
 };
 
 export const setIntegrationToken = async (token: string): Promise<string> => {
+	// eslint-disable-next-line no-console
+	console.log('SET finline:integration_token');
 	return table.setItem('finline:integration_token', token);
 };
 export const getIntegrationToken = async (): Promise<string> => {
 	const token = await table.getItem<string>('finline:integration_token');
+	// eslint-disable-next-line no-console
+	console.log('GET finline:integration_token', token);
 
 	return token;
 };
