@@ -4,9 +4,11 @@ import { isString } from '../../../helpers/typeGuards';
 import { IGeneratePaymentLinkDto, IPaymentAccount, IRawPaymentAccount } from '../../../models/payment';
 
 export const adaptToPaymentLinkDto = (values: GeneratePaymentFormValues, id: number): IGeneratePaymentLinkDto => {
+	const normalizedAmount = Number(values.amount.replace(',', '.'));
+
 	return {
 		deal_id: String(id),
-		amount: isTestCurrency(values.currency) ? VALID_TEST_PAYMENT_AMOUNT : Number(values.amount),
+		amount: isTestCurrency(values.currency) ? VALID_TEST_PAYMENT_AMOUNT : normalizedAmount,
 		currency: values.currency,
 		description: values.description,
 		customer_email: isString(values.email) ? values.email : values.email.id,
