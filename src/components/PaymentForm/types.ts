@@ -40,7 +40,7 @@ export const GeneratePaymentFormSchema = v.object({
 		v.trim(),
 		v.nonEmpty(t(getKey('required'))),
 		v.check(
-			(input) => !isNaN(Number(input)),
+			(input) => /^-?\d+(?:[.,]\d+)?$/.test(input),
 			() => t(getKey('invalidNumber')),
 		),
 	),
