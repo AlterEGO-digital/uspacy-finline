@@ -1,7 +1,7 @@
 import { valibotResolver } from '@hookform/resolvers/valibot';
 import { Box, Button, CircularProgress, FormControl, FormHelperText, Grid, IconButton, Paper, Stack } from '@mui/material';
 import React, { Suspense, useCallback, useEffect, useMemo } from 'react';
-import { Controller, FormProvider, useFieldArray, useForm } from 'react-hook-form';
+import { Controller, FormProvider, Resolver, useFieldArray, useForm } from 'react-hook-form';
 import { useTranslation } from 'react-i18next';
 
 import { getErrorMessage } from '../../helpers/errors';
@@ -31,10 +31,11 @@ type ExtractStringKeys<T> = T extends string ? T : never;
 const defaultAccount = { posId: '', endpointsKey: '', label: '', apiKey: '', apiSecret: '' };
 export const SettingsFormComponent: React.FC<IProps> = ({ initial, onSubmit, disabled, loading = false }) => {
 	const { t } = useTranslation(['settings', 'validation']);
+	const resolver = valibotResolver(SettingsFormSchema) as Resolver<SettingsFormValues, unknown, SettingsFormValues>;
 
-	const form = useForm<SettingsFormValues>({
+	const form = useForm<SettingsFormValues, unknown, SettingsFormValues>({
 		defaultValues: initial,
-		resolver: valibotResolver(SettingsFormSchema),
+		resolver,
 	});
 	const { fields, append, remove } = useFieldArray({
 		control: form.control,

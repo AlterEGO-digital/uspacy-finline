@@ -1,7 +1,7 @@
 import { valibotResolver } from '@hookform/resolvers/valibot';
 import { Box, FormControl, FormHelperText, Grid, MenuItem, Stack } from '@mui/material';
 import React, { Suspense, useCallback, useEffect, useMemo, useRef, useState } from 'react';
-import { Controller, FormProvider, useForm } from 'react-hook-form';
+import { Controller, FormProvider, Resolver, useForm } from 'react-hook-form';
 import { useTranslation } from 'react-i18next';
 
 import { getErrorMessage } from '../../helpers/errors';
@@ -31,7 +31,8 @@ interface IProps {
 }
 
 export const PaymentFormComponent: React.FC<IProps> = ({ initial, onSubmit, disabled, loading = false }) => {
-	const form = useForm<GeneratePaymentFormValues>({ defaultValues: initial, resolver: valibotResolver(GeneratePaymentFormSchema) });
+	const resolver = valibotResolver(GeneratePaymentFormSchema) as Resolver<GeneratePaymentFormValues, unknown, GeneratePaymentFormValues>;
+	const form = useForm<GeneratePaymentFormValues, unknown, GeneratePaymentFormValues>({ defaultValues: initial, resolver });
 
 	const { accounts, currencies, emails, phones } = usePaymentSourceData();
 	const { t } = useTranslation(['payment', 'validation']);
